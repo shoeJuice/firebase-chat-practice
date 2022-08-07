@@ -32,7 +32,7 @@ const Room = ({ roomID }: any) => {
   const q = query(messagesRef, orderBy("createdAt"));
   //const userQuery = query(usersRef, where("userID", "==", user.id));
   //const currentUser = doc(firestore, "rooms", roomID, )
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>();
   const [messages, loading, error, snapshot] = useCollectionData(q);
 
   const handleSubmit = async () => {
