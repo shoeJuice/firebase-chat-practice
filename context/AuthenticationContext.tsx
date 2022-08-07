@@ -19,6 +19,7 @@ export const AuthenticationProvider = ({ children }: any) => {
                     uid: user.uid,
                     email: user.email,
                     displayName: user.displayName,
+                    photoURL: user.photoURL,
                 });
             } else {
                 setUser(null);

@@ -12,6 +12,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Welcome to Remy&apos;s Chat Practice App.</h1>
+      <p>Click on Rooms and select a room to get started!</p>
+      <p>Don&apos;t try anything funny I will ban the shit out of you.</p>
     </div>
   )
 }

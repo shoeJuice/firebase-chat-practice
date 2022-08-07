@@ -6,6 +6,9 @@ const nextConfig = {
     runtime: 'nodejs',
     serverComponents: true,
   },
+  images: {
+    domains: ['lh3.googleusercontent.com', ], 
+  }
 }
 
 module.exports = nextConfig
