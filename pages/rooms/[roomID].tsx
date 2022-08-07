@@ -1,7 +1,6 @@
 import { useRef, useEffect } from "react";
 import { GetServerSidePropsContext, GetServerSideProps } from "next";
 import FirebaseApp from "../../config/FirebaseApp";
-import firebase from "firebase/app";
 import {
   getFirestore,
   collection,
@@ -18,22 +17,18 @@ import {
   orderBy,
   updateDoc,
 } from "firebase/firestore";
-import { useRouter } from "next/router";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthentication } from "../../context/AuthenticationContext";
 
 const Room = ({ roomID }: any) => {
   const firestore = getFirestore(FirebaseApp);
   const { user } = useAuthentication();
-  const roomsRef = collection(firestore, "rooms");
   const messagesRef = collection(firestore, "rooms", roomID, "messages");
   const usersRef = collection(firestore, "rooms", roomID, "users");
   const currentUser = doc(usersRef, user.uid);
-  const q = query(messagesRef, orderBy("createdAt"));
-  //const userQuery = query(usersRef, where("userID", "==", user.id));
-  //const currentUser = doc(firestore, "rooms", roomID, )
+  const messagesQuery = query(messagesRef, orderBy("createdAt"));
   const inputRef = useRef<HTMLInputElement>(null);
-  const [messages, loading, error, snapshot] = useCollectionData(q);
+  const [messages, loading, error, snapshot] = useCollectionData(messagesQuery);
 
   const handleSubmit = async () => {
     const input = inputRef.current?.value;
@@ -45,20 +40,16 @@ const Room = ({ roomID }: any) => {
       .catch((error) => {
         console.error(error.message);
       })
-      .finally(() => {
-        console.log("Message has been sent.");
-      });
   };
 
   useEffect(() => {
         setDoc(currentUser, {
         userID: user.uid,
         userName: user.displayName,
-      }).finally( () => {console.log("User should be added.")});
+      });
 
       return () => {
-        console.log("Component should unmount..");
-        deleteDoc(currentUser).finally(() => {console.log("User should be removed from room.")});
+        deleteDoc(currentUser);;
       }
 
   }, []);
