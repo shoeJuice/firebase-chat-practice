@@ -31,26 +31,11 @@ const Room = ({ roomID, roomName }: any) => {
     collection(firestore, "rooms", roomID, "users"),
     user.uid
   );
-  const currentRoom = doc(collection(firestore, "rooms"), roomID);
   const messagesQuery = query(messagesRef, orderBy("createdAt"));
   const inputRef = useRef<HTMLInputElement>(null);
   const [messages, loading, error, snapshot] = useCollectionData(messagesQuery);
 
-  const handleSubmit = async () => {
-    let input = inputRef.current?.value;
-    if(input == ""){
-      return
-    }
-    await addDoc(messagesRef, {
-      user: user.displayName,
-      text: input,
-      createdAt: serverTimestamp(),
-    }).catch((error) => {
-      console.error(error.message);
-    });
-    if (inputRef.current) inputRef.current.value = "";
-  };
-  console.log(currentRoom);
+  
   useEffect(() => {
     setDoc(currentUser, {
       userID: user.uid,

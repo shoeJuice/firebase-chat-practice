@@ -8,12 +8,14 @@ import {
   Stack,
   Space,
   Group,
-  Divider, 
+  Divider,
+  useMantineColorScheme,
 } from "@mantine/core";
 import NextLink from "next/link";
 
-const Nav = ({hiddenBreakpoint, hidden} : any) => {
+const Nav = ({ hiddenBreakpoint, hidden }: any) => {
   const { login, user, logout } = useAuthentication();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const handleLogin = () => {
     if (!user) {
       login();
@@ -24,9 +26,14 @@ const Nav = ({hiddenBreakpoint, hidden} : any) => {
   };
 
   return (
-    <Navbar width={{ sm: 200, lg: 300 }} p="xs" hiddenBreakpoint={hiddenBreakpoint} hidden={hidden}>
+    <Navbar
+      width={{ sm: 200, lg: 300 }}
+      p="xs"
+      hiddenBreakpoint={hiddenBreakpoint}
+      hidden={hidden}
+    >
       <Navbar.Section grow mt="mid">
-        <Stack align='flex-start'>
+        <Stack align="flex-start">
           <NextLink href={"/"}>
             <Button variant="subtle">Home</Button>
           </NextLink>
@@ -34,6 +41,8 @@ const Nav = ({hiddenBreakpoint, hidden} : any) => {
           <Button variant="subtle">About</Button>
 
           <Button variant="subtle">Contact</Button>
+
+          <Button variant="subtle" onClick={() => toggleColorScheme()}>{colorScheme == "light" ? "Dark Mode" : "Light Mode"}</Button>
 
           {user && (
             <NextLink href={"/rooms"}>

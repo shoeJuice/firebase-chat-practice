@@ -10,19 +10,15 @@ import { useAuthentication } from '../../context/AuthenticationContext';
 
 const ChatBubble = ({user, text, isUser} : any) => {
   return (
-    <Paper px={15} py={10} mx={10} sx={isUser ? {
-        alignSelf: "flex-start",
-        textAlign: "left",
-        backgroundColor: "#D0EBFF"
-      } : {
-        alignSelf: "flex-end",
-        textAlign: "right",
-        backgroundColor: "#CED4DA"
-      }
+    <Paper px={15} py={10} mx={10} sx={{
+        alignSelf: isUser ? "flex-start" : "flex-end",
+        textAlign: isUser ? "left" : "right",
+        backgroundColor: isUser ? "#D0EBFF" : "#CED4DA"
+      } 
     }>
       <Group>
         <Stack spacing={1}>
-          <span>{user}</span>
+          {isUser ? null : <span>{user}</span>}
           <p>{text}</p>
         </Stack>
       </Group>

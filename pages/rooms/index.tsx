@@ -15,7 +15,7 @@ import {
   useCollection,
 } from "react-firebase-hooks/firestore";
 import Link from "next/link";
-import { Button, Modal, Group, TextInput, Tooltip, UnstyledButton } from "@mantine/core";
+import { Button, Modal, Group, TextInput, Tooltip, UnstyledButton, Container, Title, useMantineTheme } from "@mantine/core";
 
 
 const Rooms = () => {
@@ -26,12 +26,12 @@ const Rooms = () => {
   const [values, loading, error] = useCollection(
     collection(getFirestore(FirebaseApp), "rooms")
   );
-
+  const theme = useMantineTheme();
   return loading ? (
     <div>Loading...</div>
   ) : (
-    <div>
-      <h1>Rooms</h1>
+    <Container>
+      <Title mb={2} order={2}>Rooms</Title>
       <Button
         mb={40}
         onClick={() => {
@@ -84,7 +84,7 @@ const Rooms = () => {
           </div>
         );
       })}
-    </div>
+    </Container>
   );
 };
 
