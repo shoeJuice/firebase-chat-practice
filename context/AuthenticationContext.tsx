@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { useRouter } from "next/router";
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut  } from "firebase/auth";
-import { auth, provider } from "../config/FirebaseApp"
+import { firebaseAuth, provider } from "../config/FirebaseApp"
 
 const AuthenticationContext = createContext<any>({});
 
@@ -13,7 +13,7 @@ export const AuthenticationProvider = ({ children }: any) => {
   const router = useRouter();
 
     useEffect(() => {
-        const isSubscribed = onAuthStateChanged(auth, (user) => {
+        const isSubscribed = onAuthStateChanged(firebaseAuth, (user) => {
             if (user) {
                 setUser({
                     uid: user.uid,
@@ -29,14 +29,14 @@ export const AuthenticationProvider = ({ children }: any) => {
     }, []);
 
     const login = () => {
-        return signInWithPopup(auth, provider).catch(error => {
+        return signInWithPopup(firebaseAuth, provider).catch(error => {
             console.log(error.message);
         })
     }
 
     const logout = async() => {
         setUser(null);
-        await signOut(auth);
+        await signOut(firebaseAuth);
     }
 
   return (
