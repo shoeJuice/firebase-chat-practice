@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import { useRouter } from "next/router";
 import { onAuthStateChanged, signInWithPopup, GoogleAuthProvider, signOut  } from "firebase/auth";
-import { getFirebaseAuth, provider } from "../config/FirebaseApp"
+import { getFirebaseAuth, providers } from "../config/FirebaseApp"
 
 const AuthenticationContext = createContext<any>({});
 
@@ -29,8 +29,14 @@ export const AuthenticationProvider = ({ children }: any) => {
     }, []);
 
     const login = async() => {
-        return await signInWithPopup(getFirebaseAuth(), provider).catch(error => {
+        return await signInWithPopup(getFirebaseAuth(), providers.Google).catch(error => {
             console.log(error.message);
+        })
+    }
+
+    const loginWithGoogle = async() => {
+        return await signInWithPopup(getFirebaseAuth(), providers.Google).catch(error => {
+          console.log(error.message);
         })
     }
 
@@ -40,7 +46,7 @@ export const AuthenticationProvider = ({ children }: any) => {
     }
 
   return (
-    <AuthenticationContext.Provider value={{ user, login, logout }}>
+    <AuthenticationContext.Provider value={{ user, login, logout, loginWithGoogle }}>
       {loading ? null : children}
     </AuthenticationContext.Provider>
   );

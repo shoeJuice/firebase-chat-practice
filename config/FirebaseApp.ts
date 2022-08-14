@@ -6,9 +6,12 @@ import {
   setPersistence,
   browserSessionPersistence,
   connectAuthEmulator,
+  GithubAuthProvider,
+  FacebookAuthProvider,
 } from "firebase/auth";
 
-import { emulators } from "../firebase.json";
+
+const {emulators}  = require("../firebase.json")
 
 // @ts-ignore
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG);
@@ -48,4 +51,11 @@ export const getFirebaseAuth = () => {
   return auth;
 };
 
-export const provider = new GoogleAuthProvider();
+export const GoogleProvider = new GoogleAuthProvider();
+export const GithubProvider = new GithubAuthProvider();
+
+export const providers = {
+    Google: new GoogleAuthProvider(),
+    Github: new GithubAuthProvider(),
+    Facebook: new FacebookAuthProvider(), 
+}
