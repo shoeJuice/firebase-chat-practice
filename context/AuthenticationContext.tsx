@@ -28,8 +28,8 @@ export const AuthenticationProvider = ({ children }: any) => {
         setLoading(false);
     }, []);
 
-    const login = () => {
-        return signInWithPopup(getFirebaseAuth(), provider).catch(error => {
+    const login = async() => {
+        return await signInWithPopup(getFirebaseAuth(), provider).catch(error => {
             console.log(error.message);
         })
     }

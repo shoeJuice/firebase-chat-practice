@@ -26,13 +26,10 @@ import ChatContainer from "../../modules/chat/ChatContainer";
 const Room = ({ roomID, roomName }: any) => {
   const firestore = getFirestoreDB();
   const { user } = useAuthentication();
-  const messagesRef = collection(firestore, "rooms", roomID, "messages");
   const currentUser = doc(
     collection(firestore, "rooms", roomID, "users"),
     user.uid
   );
-  const messagesQuery = query(messagesRef, orderBy("createdAt"));
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setDoc(currentUser, {
