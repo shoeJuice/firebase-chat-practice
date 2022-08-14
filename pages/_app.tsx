@@ -17,17 +17,17 @@ import Nav from "../modules/nav/Nav";
 import Header from "../modules/layout/Header";
 import { motion } from "framer-motion";
 import { vw } from "../utils/functions/getDimensions";
+import useRainbow from "../utils/functions/useRainbow";
 
-const allowedRoutes = ["/login", "/register"];
+const allowedRoutes = ["/", "/login", "/register"];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [opened, setOpened] = useState(false);
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
-  const windowWidth = typeof window != "undefined" && window.innerWidth;
+  
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || colorScheme == "dark" ? "light" : "dark");
-  const theme = useMantineTheme();
 
   return (
     <ColorSchemeProvider
@@ -65,57 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       >
         <AuthenticationProvider>
           {allowedRoutes.includes(router.pathname) ? (
-            <div
-              style={{
-                display: "flex",
-                minHeight: "100vh",
-                maxWidth: "100vw",
-              }}
-            >
-              <div
-                style={{
-                  position: "absolute",
-                  zIndex: -1,
-                  width: "100%",
-                  height: "100%",
-                }}
-              >
-                {Array.from({length: 300}).map((index, key) => {
-                  // @ts-ignore
-                  const xSpread = Math.floor(Math.random() * windowWidth-3);
-                  const fallSpread = Math.floor(Math.random() * 100) + 40;
-                  const shadeChoice = Math.floor(Math.random() * 5) + 1;
-                  return (
-                    <motion.div key={key} style={{
-                      position: "absolute",
-                      x: xSpread,
-                      y: -200,
-                      zIndex: -(key),
-                      width: ".5rem",
-                      height: ".5rem",
-                      borderRadius: "0.5rem",
-                      backgroundColor: theme.colors.gray[shadeChoice],
-                    }}
-                    transition={{
-                      y: {
-                        duration: fallSpread,
-                        repeat: Infinity,
-                        ease: "easeOut",
-                        fade: "fadeOut"
-                      },
-                      delay: Math.floor(Math.random() * 150) + 1,
-                      repeatDelay: Math.floor(Math.random() * 10) + 1,
-                      
-                    }}
-                    animate={{
-                      y: "100vh",
-                    }} />)
-                })}
-              </div>
-              <div style={{ margin: "auto" }}>
-                <Component {...pageProps} />
-              </div>
-            </div>
+            <Component {...pageProps} />
           ) : (
             <AppShell
               padding="md"
