@@ -8,13 +8,14 @@ import {
 } from "firebase/firestore";
 import { Input, Group, Button } from "@mantine/core";
 
-import firebaseApp from "../../config/FirebaseApp";
+import {getFirestoreDB} from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
 
 const ChatInput = ({ roomID }: any) => {
+  const firestore = getFirestoreDB();
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesRef = collection(
-    getFirestore(firebaseApp),
+    firestore,
     "rooms",
     roomID,
     "messages"

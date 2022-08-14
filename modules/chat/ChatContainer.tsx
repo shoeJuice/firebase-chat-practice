@@ -3,7 +3,7 @@ import React from 'react'
 import { Stack, Paper, Group } from '@mantine/core';
 import { collection, getFirestore, query, doc, getDoc, orderBy } from 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import FirebaseApp from '../../config/FirebaseApp';
+import { getFirestoreDB } from '../../config/FirebaseApp';
 
 import { useAuthentication } from '../../context/AuthenticationContext';
 
@@ -29,9 +29,10 @@ const ChatBubble = ({user, text, isUser} : any) => {
 
 const ChatContainer = ({roomID} : any) => {
 
+  const firestore = getFirestoreDB();
   const { user } = useAuthentication();
 
-  const messagesRef = collection(getFirestore(FirebaseApp), "rooms", roomID, "messages");
+  const messagesRef = collection(firestore, "rooms", roomID, "messages");
   const messagesQuery = query(messagesRef, orderBy("createdAt"));
 
   const [messages, loading, error] = useCollectionData(messagesQuery);

@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 import { GetServerSidePropsContext, GetServerSideProps } from "next";
-import FirebaseApp from "../../config/FirebaseApp";
+import { getFirestoreDB } from "../../config/FirebaseApp";
 import {
   getFirestore,
   collection,
@@ -24,7 +24,7 @@ import ChatInput from "../../modules/chat/ChatInput";
 import ChatContainer from "../../modules/chat/ChatContainer";
 
 const Room = ({ roomID, roomName }: any) => {
-  const firestore = getFirestore(FirebaseApp);
+  const firestore = getFirestoreDB();
   const { user } = useAuthentication();
   const messagesRef = collection(firestore, "rooms", roomID, "messages");
   const currentUser = doc(
@@ -33,9 +33,7 @@ const Room = ({ roomID, roomName }: any) => {
   );
   const messagesQuery = query(messagesRef, orderBy("createdAt"));
   const inputRef = useRef<HTMLInputElement>(null);
-  const [messages, loading, error, snapshot] = useCollectionData(messagesQuery);
 
-  
   useEffect(() => {
     setDoc(currentUser, {
       userID: user.uid,
@@ -61,7 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (
 ) => {
   const { roomID } = context.query;
   const currentRoom = doc(
-    collection(getFirestore(FirebaseApp), "rooms"),
+    collection(getFirestoreDB(), "rooms"),
     String(roomID)
   );
   let roomName = "";

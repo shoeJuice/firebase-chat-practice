@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>Welcome to Remy&apos;s Chat Practice App.</h1>
+      {process.env.NODE_ENV === "development" && <h2>Dev Mode</h2>}
       <p>Click on Rooms and select a room to get started!</p>
       <p>Don&apos;t try anything funny I will ban the shit out of you.</p>
     </div>

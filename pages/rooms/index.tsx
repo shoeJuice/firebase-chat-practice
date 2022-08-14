@@ -8,30 +8,42 @@ import {
   onSnapshot,
   QuerySnapshot,
 } from "firebase/firestore";
-import FirebaseApp from "../../config/FirebaseApp";
+import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useRouter } from "next/router";
 import {
   useCollectionData,
   useCollection,
 } from "react-firebase-hooks/firestore";
 import Link from "next/link";
-import { Button, Modal, Group, TextInput, Tooltip, UnstyledButton, Container, Title, useMantineTheme } from "@mantine/core";
-
+import {
+  Button,
+  Modal,
+  Group,
+  TextInput,
+  Tooltip,
+  UnstyledButton,
+  Container,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 
 const Rooms = () => {
   const router = useRouter();
+  const firestore = getFirestoreDB();
   const [opened, setOpened] = useState<boolean>(false);
   const [roomName, setRoomName] = useState<string>("");
   const [roomDescription, setRoomDescription] = useState<string>("");
   const [values, loading, error] = useCollection(
-    collection(getFirestore(FirebaseApp), "rooms")
+    collection(firestore, "rooms")
   );
   const theme = useMantineTheme();
   return loading ? (
     <div>Loading...</div>
   ) : (
     <Container>
-      <Title mb={2} order={2}>Rooms</Title>
+      <Title mb={2} order={2}>
+        Rooms
+      </Title>
       <Button
         mb={40}
         onClick={() => {
@@ -62,7 +74,7 @@ const Rooms = () => {
         <Button
           onClick={async () => {
             let newDoc = await addDoc(
-              collection(getFirestore(FirebaseApp), "rooms"),
+              collection(firestore, "rooms"),
               { title: roomName, description: roomDescription }
             );
             console.log(
@@ -79,7 +91,12 @@ const Rooms = () => {
         return (
           <div key={value.id}>
             <Tooltip label={value.data().description} withArrow>
-              <UnstyledButton mb={20} onClick={() => router.push(`rooms/${value.id}`)}>{value.data().title}</UnstyledButton>
+              <UnstyledButton
+                mb={20}
+                onClick={() => router.push(`rooms/${value.id}`)}
+              >
+                {value.data().title}
+              </UnstyledButton>
             </Tooltip>
           </div>
         );
