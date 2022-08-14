@@ -30,7 +30,7 @@ function LoginPage() {
   return (
     <ConfettiAnimation
       opacity={5}
-      numConfetti={300}
+      numConfetti={1000}
       excludeList={["gray", "dark", "blackAlpha", "whiteAlpha"]}
     >
       <Container

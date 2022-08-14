@@ -14,10 +14,8 @@ function useRainbow(index: number, excludeColors?: string[]): string[] {
         if (excludeColors && excludeColors.includes(key)) {
             return;
         }
-        console.log(key)
         rainbow.push(theme.colors[key][index]);
     })
-    console.log("DEBUG: Rainbow Array", rainbow);
     return rainbow;
 }
 

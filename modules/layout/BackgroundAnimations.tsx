@@ -65,7 +65,7 @@ const ConfettiAnimation = ({
                 style={{
                   position: "absolute",
                   x: xSpread,
-                  y: -50,
+                  y: -10,
                   zIndex: -key,
                   width: ".5rem",
                   height: ".5rem",
@@ -74,12 +74,6 @@ const ConfettiAnimation = ({
                     rainbowArray[
                       Math.floor(Math.random() * rainbowArray.length)
                     ],
-                }}
-                whileHover={{
-                  scale: 2,
-                }}
-                onHoverStart={() => {
-                  console.log("Hover Recognized");
                 }}
                 animate={{
                   y: `97vh`,
