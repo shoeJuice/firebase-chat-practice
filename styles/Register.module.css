@@ -1,0 +1,24 @@
+
+.fullPage {
+    height: 100vh;
+    width: 100vw;
+  }
+
+.chevron{
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   z-index: 1;
+   background: url('../public/pattern.png')
+   
+}
+
+.panel {
+    width: 40%;
+}
+
+@media (max-width: 480px) {
+    .panel {
+        width: 450px;
+    }
+}

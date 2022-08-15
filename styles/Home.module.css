@@ -2,6 +2,13 @@
   padding: 0 2rem;
 }
 
+
+.fullPage {
+  height: 100vh;
+  width: 100vw;
+}
+
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;
@@ -111,19 +118,33 @@
 .splashContainer{
   display: flex;
   flex-direction: row;
- 
   margin: auto;
-  width: 100vw;
-  height: 100vh;
-  padding: 0 20em;
+  height: 100%;
+  padding: 40px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .splashContainer div{
   display: flex;
   flex-direction: column;
   text-align: left;
+  width:100%;
 }
 
+.splashContainer div h1{
+  font-size: 2.8em;
+  margin: 0;
+}
+
+.splashContainer div p{
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.splashImage {
+  place-self: "center";
+}
 
 
 
@@ -133,7 +154,31 @@
     width: 100%;
     flex-direction: column;
   }
+
+  
+
+  .splashContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 80px 40px;
+    justify-content: center;
+  }
+
+  .splashContainer div p{
+    font-size: 1.2em;
+  }
+
+  .splashContainer div h1{
+    font-size: 1.8em;
+  }
+
+  .splashContainer .splashImage{
+    display: none;
+  }
+
+  
 }
+
 
 @media (prefers-color-scheme: dark) {
   .card,

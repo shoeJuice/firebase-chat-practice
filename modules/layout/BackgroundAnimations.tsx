@@ -6,6 +6,7 @@
  * use them when displaying full-screen animations.
  */
 
+import { useEffect, useState } from "react";
 import useRainbow from "../../utils/functions/useRainbow";
 import { motion } from "framer-motion";
 
@@ -35,16 +36,21 @@ const ConfettiAnimation = ({
   children,
   numConfetti,
 }: ConfettiProps) => {
-  const windowWidth = typeof window != "undefined" && window.innerWidth;
+  const [windowWidth, setWindowWidth] = useState(typeof window != "undefined" && window.innerWidth);
   const rainbowArray = useRainbow(opacity, excludeList);
 
+  window.addEventListener("resize", () => {
+    setWindowWidth(window.innerWidth);
+  })
+
   return (
-    <div
+    <motion.div
       style={{
         display: "flex",
         minHeight: "100vh",
         maxWidth: "100vw",
       }}
+      exit={{ opacity: 0 }}
     >
       <div
         style={{
@@ -92,7 +98,7 @@ const ConfettiAnimation = ({
         )}
       </div>
       <div style={{ margin: "auto" }}>{children}</div>
-    </div>
+    </motion.div>
   );
 };
 

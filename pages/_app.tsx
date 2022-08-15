@@ -15,17 +15,16 @@ import {
 import ProtectedRoute from "../modules/auth/ProtectedRoute";
 import Nav from "../modules/nav/Nav";
 import Header from "../modules/layout/Header";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { vw } from "../utils/functions/getDimensions";
 import useRainbow from "../utils/functions/useRainbow";
 
 const allowedRoutes = ["/", "/login", "/register"];
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter();
+function MyApp({ Component, pageProps, router }: AppProps) {
   const [opened, setOpened] = useState(false);
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light");
-  
+
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || colorScheme == "dark" ? "light" : "dark");
 
@@ -64,35 +63,37 @@ function MyApp({ Component, pageProps }: AppProps) {
         }}
       >
         <AuthenticationProvider>
-          {allowedRoutes.includes(router.pathname) ? (
-            <Component {...pageProps} />
-          ) : (
-            <AppShell
-              padding="md"
-              navbar={<Nav hiddenBreakpoint="sm" hidden={!opened} />}
-              navbarOffsetBreakpoint="sm"
-              asideOffsetBreakpoint="sm"
-              header={
-                <Header
-                  opened={opened}
-                  onBurgerClick={() => {
-                    setOpened(!opened);
-                  }}
-                />
-              }
-              styles={(theme) => ({
-                main: {
-                  backgroundColor:
-                    theme.colorScheme == "light" ? "white" : "black",
-                  color: theme.colorScheme == "light" ? "black" : "white",
-                },
-              })}
-            >
-              <ProtectedRoute>
-                <Component {...pageProps} />
-              </ProtectedRoute>
-            </AppShell>
-          )}
+          <AnimatePresence>
+            {allowedRoutes.includes(router.pathname) ? (
+              <Component {...pageProps} key={router.route} />
+            ) : (
+              <AppShell
+                padding="md"
+                navbar={<Nav hiddenBreakpoint="sm" hidden={!opened} />}
+                navbarOffsetBreakpoint="sm"
+                asideOffsetBreakpoint="sm"
+                header={
+                  <Header
+                    opened={opened}
+                    onBurgerClick={() => {
+                      setOpened(!opened);
+                    }}
+                  />
+                }
+                styles={(theme) => ({
+                  main: {
+                    backgroundColor:
+                      theme.colorScheme == "light" ? "white" : "black",
+                    color: theme.colorScheme == "light" ? "black" : "white",
+                  },
+                })}
+              >
+                <ProtectedRoute>
+                  <Component {...pageProps} />
+                </ProtectedRoute>
+              </AppShell>
+            )}
+          </AnimatePresence>
         </AuthenticationProvider>
       </MantineProvider>
     </ColorSchemeProvider>

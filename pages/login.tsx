@@ -28,46 +28,57 @@ function LoginPage() {
 
   console.log("Color Scheme", colorScheme);
   return (
-    <ConfettiAnimation
-      opacity={5}
-      numConfetti={1000}
-      excludeList={["gray", "dark", "blackAlpha", "whiteAlpha"]}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, transition: { duration: 2.5, ease: "linear" } }}
+      exit={{ opacity: 0 }}
     >
-      <Container
-        style={{
-          position: "relative",
-        }}
+      <ConfettiAnimation
+        opacity={5}
+        numConfetti={1000}
+        excludeList={["gray", "dark", "blackAlpha", "whiteAlpha"]}
       >
-        <h1>Login</h1>
-        <div
+        <Container
           style={{
-            backgroundColor: theme.colors.whiteAlpha[6],
-            padding: theme.spacing.sm,
-            borderRadius: 6,
-            zIndex: 50,
+            position: "relative",
           }}
         >
-          <Stack spacing={2} mb={10}>
-            <TextInput
-              placeholder="E-mail Address"
-              label="Email"
-              //classNames={{label: classes.label}}
-            />
-            <TextInput
-              placeholder="Password"
-              label="Password"
-              styles={{
-                label: { color: colorScheme == "light" ? "dark" : "white" },
-              }}
-            />
-            <Button mt={10}> Sign In </Button>
-          </Stack>
+          <h1>Login</h1>
+          <motion.div
+            style={{
+              backgroundColor: theme.colors.whiteAlpha[6],
+              padding: theme.spacing.sm,
+              borderRadius: 6,
+              zIndex: 50,
+            }}
+            initial={{ opacity: 0, y: "200%" }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+            exit={{ opacity: 0 }}
+          >
+            <Stack spacing={2} mb={10}>
+              <TextInput
+                placeholder="E-mail Address"
+                label="Email"
+                //classNames={{label: classes.label}}
+              />
+              <TextInput
+                placeholder="Password"
+                label="Password"
+                styles={{
+                  label: { color: colorScheme == "light" ? "dark" : "white" },
+                }}
+              />
+              <Button color="grape" mt={10}> Sign In </Button>
+            </Stack>
 
-          <Divider my="lg" />
-          <Button onClick={loginWithGoogle} style={{ width: "100%" }}> Sign In with Google </Button>
-        </div>
-      </Container>
-    </ConfettiAnimation>
+            <Divider my="lg" />
+            <Button color="grape" onClick={loginWithGoogle} style={{ width: "100%" }}>
+              Sign In with Google
+            </Button>
+          </motion.div>
+        </Container>
+      </ConfettiAnimation>
+    </motion.div>
   );
 }
 

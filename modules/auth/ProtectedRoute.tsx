@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 const ProtectedRoute = ({ children }: any) => {
   const router = useRouter();
   const { user } = useAuthentication();
-
+  
   useEffect(() => {
     if (!user) {
       router.push("/login");
