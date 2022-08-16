@@ -25,8 +25,7 @@ function Register() {
   return (
     <motion.div
       initial={{ opacity: 0, backgroundColor: "white" }}
-      animate={{ opacity: 1, backgroundColor: "white", transition: { duration: 2 } }}
-      exit={{ opacity: 0, backgroundColor: "white" }}
+      animate={{ opacity: 1, transition: { duration: 2 } }}
       style={{
         display: "flex",
         flexDirection: "row",
@@ -46,12 +45,13 @@ function Register() {
             repeat: Infinity,
           },
         }}
+        exit={{opacity: 0}}
         className={styles.chevron}
       ></motion.div>
       <motion.div
         initial={{x: "-100vw"}}
-        animate={{x: 0, transition: {duration: 0.9, ease: "easeInOut", delay: 1}}}
-
+        animate={{x: 0, transition: {duration: 1.5, ease: "easeInOut", delay: 1}}}
+        exit={{x: "-100vw", transition: {duration: 1.5, ease: "easeInOut"}}}
         style={{
           position: "relative",
           backgroundColor: "white",

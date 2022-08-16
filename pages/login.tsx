@@ -52,7 +52,7 @@ function LoginPage() {
               zIndex: 50,
             }}
             initial={{ opacity: 0, y: "200%" }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 0.5 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 2.5 } }}
             exit={{ opacity: 0 }}
           >
             <Stack spacing={2} mb={10}>

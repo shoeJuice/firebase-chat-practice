@@ -19,7 +19,7 @@ const Home: NextPage = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, backgroundColor: "white" }}
+      initial={{ opacity: 0 }}
       style={{
         backgroundColor: theme.colorScheme == "light" ? "white" : "black",
         color: theme.colorScheme == "light" ? "black" : "white",
@@ -29,11 +29,7 @@ const Home: NextPage = () => {
         backgroundColor: "white",
         transition: { duration: 1, ease: "linear" },
       }}
-      exit={{
-        opacity: 0,
-        backgroundColor: "white",
-        transition: { duration: 1, ease: "linear" },
-      }}
+      exit={{ opacity: 0 }}
       className={styles.fullPage}
     >
       <Head>
@@ -44,7 +40,7 @@ const Home: NextPage = () => {
       <div className={styles.splashContainer}>
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1, ease: "easeIn" } }}
+          animate={{ opacity: 1, transition: { duration: 1, ease: "easeIn", delay: 1 } }}
           exit={{ opacity: 0, transition: { duration: 1, ease: "linear" } }}
         >
           <h1>Welcome to Remy&apos;s Chat App.</h1>
