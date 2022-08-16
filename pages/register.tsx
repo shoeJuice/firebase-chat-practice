@@ -26,6 +26,7 @@ function Register() {
     <motion.div
       initial={{ opacity: 0, backgroundColor: "white" }}
       animate={{ opacity: 1, transition: { duration: 2 } }}
+      exit={{ opacity: 0, transition: { duration: 2 } }}
       style={{
         display: "flex",
         flexDirection: "row",

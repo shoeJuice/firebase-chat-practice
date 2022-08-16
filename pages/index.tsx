@@ -29,7 +29,7 @@ const Home: NextPage = () => {
         backgroundColor: "white",
         transition: { duration: 1, ease: "linear" },
       }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, transition: { duration: 2, ease: "linear" } }}
       className={styles.fullPage}
     >
       <Head>
