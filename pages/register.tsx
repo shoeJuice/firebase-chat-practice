@@ -28,20 +28,18 @@ function Register() {
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
-        position: "absolute",
-        backgroundColor: "white",
         zIndex: 0,
+      }}
+      animate={{
+        backgroundPositionY: "-2000%",
+        transition: { duration: 100, ease: "linear", loop: Infinity },
       }}
       className={styles.fullPage}
     >
       <motion.div
-        className={styles.chevron}
-      ></motion.div>
-      <motion.div
         style={{
           position: "relative",
           backgroundColor: "white",
-          borderRadius: " 0 3rem 3rem 0",
           zIndex: 2,
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.5)",
           color: theme.colorScheme == "light" ? "black" : "white",
@@ -49,15 +47,12 @@ function Register() {
         className={styles.panel}
       >
         <Grid columns={24}>
-          <Grid.Col span={20} p={40}>
+          <Grid.Col span={24} p={40}>
             <Button mb={10} color='grape' onClick={() => router.push('/')}>Back</Button>
             <Title mb={20}>Register</Title>
             <Text>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem
-              ipsum dolor sit amet consectetur adipisicing elit. Voluptates
-              tempora ab maxime, quisquam dolores amet hic ipsa officiis. Nulla
-              laborum aliquam nemo, sed dolore cum inventore dicta natus
-              repudiandae quidem!
+              ipsum dolor sit amet consectetur adipisicing elit. 
             </Text>
             <Stack my={20}>
               <Group grow>

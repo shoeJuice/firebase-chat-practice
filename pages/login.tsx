@@ -27,6 +27,10 @@ function LoginPage() {
   const { login, user, logout, loginWithGoogle } = useAuthentication();
 
   console.log("Color Scheme", colorScheme);
+
+
+
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -35,7 +39,7 @@ function LoginPage() {
     >
       <ConfettiAnimation
         opacity={5}
-        numConfetti={1000}
+        numConfetti={250}
         excludeList={["gray", "dark", "blackAlpha", "whiteAlpha"]}
       >
         <Container
