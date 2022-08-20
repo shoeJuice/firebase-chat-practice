@@ -23,12 +23,6 @@ const Home: NextPage = () => {
         backgroundColor: theme.colorScheme == "light" ? "white" : "black",
         color: theme.colorScheme == "light" ? "black" : "white",
       }}
-      animate={{
-        opacity: 1,
-        backgroundColor: "white",
-        transition: { duration: 1, ease: "linear", delay: 1.2 },
-      }}
-      exit={{ opacity: 0 }}
       className={styles.fullPage}
     >
       <Head>
@@ -38,8 +32,6 @@ const Home: NextPage = () => {
       </Head>
       <div className={styles.splashContainer}>
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1, ease: "easeIn", delay: 1 } }}
         >
           <h1>Welcome to Remy&apos;s Chat App.</h1>
           <h2>For my {<WordSwitcher />}</h2>
@@ -79,8 +71,6 @@ const Home: NextPage = () => {
         </motion.div>
         <motion.div
           className={styles.splashImage}
-          initial={{ opacity: 0 }}
-          animate={{opacity: 1, transition: {duration: 3, ease: "easeIn",}}}
         >
           <Image
             src="/gummy-wfh.svg"

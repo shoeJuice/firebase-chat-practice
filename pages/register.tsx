@@ -24,8 +24,6 @@ function Register() {
 
   return (
     <motion.div
-      animate={{ opacity: 1, transition: { duration: 1 } }}
-
       style={{
         display: "flex",
         flexDirection: "row",
@@ -37,19 +35,9 @@ function Register() {
       className={styles.fullPage}
     >
       <motion.div
-        animate={{
-          backgroundPositionY: "-100px",
-          transition: {
-            duration: 10,
-            ease: "linear",
-            repeat: Infinity,
-          },
-        }}
-        exit={{opacity: 0, transition: { duration: 1 }}}
         className={styles.chevron}
       ></motion.div>
       <motion.div
-        animate={{x: [-500, 0], transition: {duration: 1, ease: "easeInOut", delay: 1}}}
         style={{
           position: "relative",
           backgroundColor: "white",
@@ -59,7 +47,6 @@ function Register() {
           color: theme.colorScheme == "light" ? "black" : "white",
         }}
         className={styles.panel}
-        exit={{x: -500, transition: {duration: 1, ease: "easeInOut"}}}
       >
         <Grid columns={24}>
           <Grid.Col span={20} p={40}>
