@@ -29,7 +29,6 @@ const Home: NextPage = () => {
         backgroundColor: "white",
         transition: { duration: 1, ease: "linear" },
       }}
-      exit={{ opacity: 0, transition: { duration: 2, ease: "linear" } }}
       className={styles.fullPage}
     >
       <Head>
@@ -41,7 +40,6 @@ const Home: NextPage = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1, ease: "easeIn", delay: 1 } }}
-          exit={{ opacity: 0, transition: { duration: 1, ease: "linear" } }}
         >
           <h1>Welcome to Remy&apos;s Chat App.</h1>
           <h2>For my {<WordSwitcher />}</h2>
@@ -91,14 +89,6 @@ const Home: NextPage = () => {
             transition: {
               duration: 1,
               ease: "easeInOut",
-            },
-          }}
-          exit={{
-            opacity: 0,
-            x: "100%",
-            transition: {
-              duration: 1,
-              ease: "linear",
             },
           }}
         >

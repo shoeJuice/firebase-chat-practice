@@ -87,15 +87,6 @@ function Register() {
           </Grid.Col>
         </Grid>
       </motion.div>
-
-      <Container>
-        <Group>
-          <Stack>
-            <Text>Register</Text>
-            <Text>Register</Text>
-          </Stack>
-        </Group>
-      </Container>
     </motion.div>
   );
 }
