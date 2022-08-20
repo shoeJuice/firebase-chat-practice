@@ -19,10 +19,6 @@ const Home: NextPage = () => {
 
   return (
     <div 
-      style={{
-        backgroundColor: theme.colorScheme == "light" ? "white" : "black",
-        color: theme.colorScheme == "light" ? "black" : "white",
-      }}
       className={styles.fullPage}
     >
       <Head>

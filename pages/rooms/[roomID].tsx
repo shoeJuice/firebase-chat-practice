@@ -18,11 +18,14 @@ import {
   orderBy,
   updateDoc,
 } from "firebase/firestore";
-import nookies from 'nookies';
+import nookies from "nookies";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthentication } from "../../context/AuthenticationContext";
 import ChatInput from "../../modules/chat/ChatInput";
 import ChatContainer from "../../modules/chat/ChatContainer";
+import styles from "../../styles/Chat.module.css";
+import Link from "next/link";
+import { Group, Button } from "@mantine/core";
 
 const Room = ({ roomID, roomName }: any) => {
   const firestore = getFirestoreDB();
@@ -44,8 +47,13 @@ const Room = ({ roomID, roomName }: any) => {
   }, []);
 
   return (
-    <div>
-      <h1>{roomName}</h1>
+    <div className={styles.fullPage}>
+      <Group>
+        <Link passHref href={"/rooms"}>
+          <Button color="grape">Back to Rooms</Button>
+        </Link>
+        <h1>{roomName}</h1>
+      </Group>
       <ChatContainer roomID={roomID} />
       <ChatInput roomID={roomID} />
     </div>
@@ -64,6 +72,7 @@ export const getServerSideProps: GetServerSideProps = async (
     );
     let roomName = "";
     await getDoc(currentRoom).then((doc) => {
+      console.log(doc);
       roomName = doc.data()?.title;
     });
 

@@ -23,13 +23,9 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestoreDB = getFirestore(app);
 
-process.env.NODE_ENV === "development" &&
-  connectFirestoreEmulator(firestoreDB, "localhost", emulators.firestore.port);
-
-process.env.NODE_ENV === "development" &&
-  connectAuthEmulator(auth, "http://localhost:" + emulators.auth.port);
   
 auth.setPersistence(browserSessionPersistence);
+
 
 /**
  * Retrieve the Firestore instance for the current Firebase app. Note,

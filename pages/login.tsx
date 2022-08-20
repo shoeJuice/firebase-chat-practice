@@ -13,6 +13,8 @@ import React from "react";
 import { useAuthentication } from "../context/AuthenticationContext";
 import { motion } from "framer-motion";
 import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import nookies from "nookies";
 
 const useStyles = createStyles((theme) => ({
   label: {
@@ -27,9 +29,6 @@ function LoginPage() {
   const { login, user, logout, loginWithGoogle } = useAuthentication();
 
   console.log("Color Scheme", colorScheme);
-
-
-
 
   return (
     <motion.div
@@ -72,11 +71,18 @@ function LoginPage() {
                   label: { color: colorScheme == "light" ? "dark" : "white" },
                 }}
               />
-              <Button color="grape" mt={10}> Sign In </Button>
+              <Button color="grape" mt={10}>
+                {" "}
+                Sign In{" "}
+              </Button>
             </Stack>
 
             <Divider my="lg" />
-            <Button color="grape" onClick={loginWithGoogle} style={{ width: "100%" }}>
+            <Button
+              color="grape"
+              onClick={loginWithGoogle}
+              style={{ width: "100%" }}
+            >
               Sign In with Google
             </Button>
           </motion.div>
@@ -87,3 +93,20 @@ function LoginPage() {
 }
 
 export default LoginPage;
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+
+  const cookies = nookies.get(context);
+  const token = cookies.token;
+
+  if (token) {
+    context.res.writeHead(302, {location: '/rooms'});
+    context.res.end();
+    return {props: {}};
+  }
+
+  return {
+    props: {},
+  };
+};

@@ -64,22 +64,19 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       >
         <AuthenticationProvider>
           {/* @ts-ignore */}
-          <AnimatePresence exitBeforeEnter wait>
-            {allowedRoutes.includes(router.pathname) ? (
-              <motion.div
-                key={router.route}
-                animate={{ opacity: [0,1], transition: {
+          <AnimatePresence exitBeforeEnter>
+            <motion.div
+              key={router.route}
+              animate={{
+                opacity: [0, 1],
+                transition: {
                   duration: 0.5,
                   ease: "easeInOut",
-                } }}
-              >
-                <Component {...pageProps} key={router.route} />
-              </motion.div>
-            ) : (
-              
-                <Component {...pageProps} />
-            
-            )}
+                },
+              }}
+            >
+              <Component {...pageProps} key={router.route} />
+            </motion.div>
           </AnimatePresence>
         </AuthenticationProvider>
       </MantineProvider>
