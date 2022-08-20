@@ -62,6 +62,7 @@ function Register() {
           color: theme.colorScheme == "light" ? "black" : "white",
         }}
         className={styles.panel}
+        layout
       >
         <Grid columns={24}>
           <Grid.Col span={20} p={40}>

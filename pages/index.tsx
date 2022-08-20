@@ -91,6 +91,7 @@ const Home: NextPage = () => {
               ease: "easeInOut",
             },
           }}
+          layout
         >
           <Image
             src="/gummy-wfh.svg"
