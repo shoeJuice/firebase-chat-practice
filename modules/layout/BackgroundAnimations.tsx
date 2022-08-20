@@ -130,8 +130,8 @@ const ConfettiAnimation = ({
                 }}
                 custom={customConfig}
                 animate={{
-                  y: `99vh`,
-                  opacity: 1,
+                  y: `95vh`,
+                  opacity: [1, 0],
                   transition: {
                     duration: durationSpread,
                     repeat: Infinity,

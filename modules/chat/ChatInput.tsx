@@ -8,18 +8,14 @@ import {
 } from "firebase/firestore";
 import { Input, Group, Button } from "@mantine/core";
 
-import {getFirestoreDB} from "../../config/FirebaseApp";
+import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
+import styles from "../../styles/Chat.module.css";
 
 const ChatInput = ({ roomID }: any) => {
   const firestore = getFirestoreDB();
   const inputRef = useRef<HTMLInputElement>(null);
-  const messagesRef = collection(
-    firestore,
-    "rooms",
-    roomID,
-    "messages"
-  );
+  const messagesRef = collection(firestore, "rooms", roomID, "messages");
 
   const { user } = useAuthentication();
 
@@ -39,17 +35,18 @@ const ChatInput = ({ roomID }: any) => {
   };
 
   return (
-    <Group mt={10}>
-      <Input
-        ref={inputRef}
-        onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-          if (e.key === "Enter") {
-            handleSubmit();
-          }
-        }}
-      />
-      <Button onClick={handleSubmit}>Send</Button>
-    </Group>
+    <div className={styles.chatInput}>
+        <Input
+          ref={inputRef}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter") {
+              handleSubmit();
+            }
+          }}
+          style={{ width: "100%" }}
+          placeholder="Type a message..."
+        />
+    </div>
   );
 };
 
