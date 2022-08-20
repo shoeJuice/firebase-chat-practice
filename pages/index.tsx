@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   const theme = useMantineTheme();
 
   return (
-    <motion.div 
+    <div 
       style={{
         backgroundColor: theme.colorScheme == "light" ? "white" : "black",
         color: theme.colorScheme == "light" ? "black" : "white",
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
             </NextLink>
           </div>
         </motion.div>
-        <motion.div
+        <div
           className={styles.splashImage}
         >
           <Image
@@ -78,9 +78,9 @@ const Home: NextPage = () => {
             height={1000}
             alt="Chat Splash"
           />
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
