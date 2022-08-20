@@ -7,6 +7,7 @@ import {
   signOut,
 } from "firebase/auth";
 import { getFirebaseAuth, providers } from "../config/FirebaseApp";
+import nookies from 'nookies';
 
 const AuthenticationContext = createContext<any>({});
 
@@ -33,8 +34,8 @@ export const AuthenticationProvider = ({ children }: any) => {
     setLoading(false);
   }, []);
 
-  const login = async () => {
-    return await signInWithPopup(getFirebaseAuth(), providers.Google).catch(
+  const login = async (provider: any) => {
+    return await signInWithPopup(getFirebaseAuth(), provider).catch(
       (error) => {
         console.log(error.message);
       }
@@ -43,7 +44,9 @@ export const AuthenticationProvider = ({ children }: any) => {
 
   const loginWithGoogle = async () => {
     return await signInWithPopup(getFirebaseAuth(), providers.Google)
-      .then(() => {
+      .then(async(credentials) => {
+        const token = await credentials.user.getIdToken();
+        nookies.set(undefined, 'token', token, {path: '/'});
         router.push("/rooms");
       })
       .catch((error) => {
@@ -53,7 +56,10 @@ export const AuthenticationProvider = ({ children }: any) => {
 
   const logout = async () => {
     setUser(null);
-    await signOut(getFirebaseAuth());
+    await signOut(getFirebaseAuth()).then(() => {
+      nookies.destroy(undefined, 'token', {path: '/'});
+      router.push("./");
+    })
   };
 
   return (

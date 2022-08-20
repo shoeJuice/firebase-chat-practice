@@ -18,6 +18,7 @@ import {
   orderBy,
   updateDoc,
 } from "firebase/firestore";
+import nookies from 'nookies';
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthentication } from "../../context/AuthenticationContext";
 import ChatInput from "../../modules/chat/ChatInput";
@@ -52,22 +53,32 @@ const Room = ({ roomID, roomName }: any) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
+  ctx: GetServerSidePropsContext
 ) => {
-  const { roomID } = context.query;
-  const currentRoom = doc(
-    collection(getFirestoreDB(), "rooms"),
-    String(roomID)
-  );
-  let roomName = "";
-  await getDoc(currentRoom).then((doc) => {
-    roomName = doc.data()?.title;
-  });
+  try {
+    const token = nookies.get(ctx);
+    const { roomID } = ctx.query;
+    const currentRoom = doc(
+      collection(getFirestoreDB(), "rooms"),
+      String(roomID)
+    );
+    let roomName = "";
+    await getDoc(currentRoom).then((doc) => {
+      roomName = doc.data()?.title;
+    });
+
+    return {
+      props: {
+        roomID,
+        roomName,
+      },
+    };
+  } catch (e) {
+    console.error(e);
+  }
+
   return {
-    props: {
-      roomID,
-      roomName,
-    },
+    props: {} as never,
   };
 };
 

@@ -1,4 +1,8 @@
 import { initializeApp, FirebaseApp } from "firebase/app";
+import {
+  initializeApp as initializeAdminApp,
+  auth as getAdminAuth,
+} from "firebase-admin";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import {
   getAuth,
@@ -10,8 +14,8 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 
-
-const {emulators}  = require("../firebase.json")
+// Purely for testing purposes, since Jest doesn't support modules yet.
+const { emulators } = require("../firebase.json");
 
 // @ts-ignore
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG);
@@ -22,10 +26,10 @@ const firestoreDB = getFirestore(app);
 process.env.NODE_ENV === "development" &&
   connectFirestoreEmulator(firestoreDB, "localhost", emulators.firestore.port);
 
-auth.setPersistence(browserSessionPersistence);
-
 process.env.NODE_ENV === "development" &&
   connectAuthEmulator(auth, "http://localhost:" + emulators.auth.port);
+  
+auth.setPersistence(browserSessionPersistence);
 
 /**
  * Retrieve the Firestore instance for the current Firebase app. Note,
@@ -51,11 +55,11 @@ export const getFirebaseAuth = () => {
   return auth;
 };
 
-export const GoogleProvider = new GoogleAuthProvider();
-export const GithubProvider = new GithubAuthProvider();
-
 export const providers = {
-    Google: new GoogleAuthProvider(),
-    Github: new GithubAuthProvider(),
-    Facebook: new FacebookAuthProvider(), 
-}
+  Google: new GoogleAuthProvider(),
+  Github: new GithubAuthProvider(),
+  Facebook: new FacebookAuthProvider(),
+};
+
+// @ts-ignore
+export const firebaseAdminConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_ADMIN_CONFIG);

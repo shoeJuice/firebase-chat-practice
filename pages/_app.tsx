@@ -88,9 +88,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
                   },
                 })}
               >
-                <ProtectedRoute>
-                  <Component {...pageProps} />
-                </ProtectedRoute>
+                <Component {...pageProps} />
               </AppShell>
             )}
           </AnimatePresence>
