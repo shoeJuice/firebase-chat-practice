@@ -63,7 +63,8 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         }}
       >
         <AuthenticationProvider>
-          <AnimatePresence>
+          { /* @ts-ignore */ }
+          <AnimatePresence wait>
             {allowedRoutes.includes(router.pathname) ? (
               <Component {...pageProps} key={router.route} />
             ) : (
