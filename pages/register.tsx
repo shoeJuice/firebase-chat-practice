@@ -24,9 +24,8 @@ function Register() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, backgroundColor: "white" }}
-      animate={{ opacity: 1, transition: { duration: 2 } }}
-      exit={{ opacity: 0, transition: { duration: 2 } }}
+      animate={{ opacity: 1, transition: { duration: 1 } }}
+
       style={{
         display: "flex",
         flexDirection: "row",
@@ -46,13 +45,11 @@ function Register() {
             repeat: Infinity,
           },
         }}
-        exit={{opacity: 0}}
+        exit={{opacity: 0, transition: { duration: 1 }}}
         className={styles.chevron}
       ></motion.div>
       <motion.div
-        initial={{x: "-100vw"}}
-        animate={{x: 0, transition: {duration: 1.5, ease: "easeInOut", delay: 1}}}
-        exit={{x: "-100vw", transition: {duration: 1.5, ease: "easeInOut"}}}
+        animate={{x: [-500, 0], transition: {duration: 1, ease: "easeInOut", delay: 1}}}
         style={{
           position: "relative",
           backgroundColor: "white",
@@ -62,7 +59,7 @@ function Register() {
           color: theme.colorScheme == "light" ? "black" : "white",
         }}
         className={styles.panel}
-        layout
+        exit={{x: -500, transition: {duration: 1, ease: "easeInOut"}}}
       >
         <Grid columns={24}>
           <Grid.Col span={20} p={40}>

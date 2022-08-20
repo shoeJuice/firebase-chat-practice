@@ -18,8 +18,7 @@ const Home: NextPage = () => {
   const theme = useMantineTheme();
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
+    <motion.div 
       style={{
         backgroundColor: theme.colorScheme == "light" ? "white" : "black",
         color: theme.colorScheme == "light" ? "black" : "white",
@@ -27,8 +26,9 @@ const Home: NextPage = () => {
       animate={{
         opacity: 1,
         backgroundColor: "white",
-        transition: { duration: 1, ease: "linear" },
+        transition: { duration: 1, ease: "linear", delay: 1.2 },
       }}
+      exit={{ opacity: 0 }}
       className={styles.fullPage}
     >
       <Head>
@@ -79,19 +79,8 @@ const Home: NextPage = () => {
         </motion.div>
         <motion.div
           className={styles.splashImage}
-          initial={{
-            opacity: 0,
-            x: "100%",
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-            transition: {
-              duration: 1,
-              ease: "easeInOut",
-            },
-          }}
-          layout
+          initial={{ opacity: 0 }}
+          animate={{opacity: 1, transition: {duration: 3, ease: "easeIn",}}}
         >
           <Image
             src="/gummy-wfh.svg"
