@@ -14,8 +14,6 @@ import {
   FacebookAuthProvider,
 } from "firebase/auth";
 
-// Purely for testing purposes, since Jest doesn't support modules yet.
-const { emulators } = require("../firebase.json");
 
 // @ts-ignore
 const firebaseConfig = JSON.parse(process.env.NEXT_PUBLIC_FIREBASE_CONFIG);
