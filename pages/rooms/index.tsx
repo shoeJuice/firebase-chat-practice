@@ -34,7 +34,6 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { getFirebaseAuth } from "../../config/FirebaseApp";
-import * as serviceAccount from "../../fir-chat-practice-da5a6-firebase-adminsdk-9wem5-75ef078269.json";
 
 const Rooms = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
