@@ -5,7 +5,9 @@ import {
   Button,
   Divider,
   useChakra,
-  FormLabel
+  FormLabel,
+  theme,
+  Heading,
 } from "@chakra-ui/react";
 import React from "react";
 import { useAuthentication } from "../context/AuthenticationContext";
@@ -14,12 +16,29 @@ import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
 import initAdminApp from "../modules/auth/InitAdminApp";
+import { createUseStyles } from "react-jss";
 
-
+const useStyles = createUseStyles({
+  loginForm: {
+    borderRadius: 6,
+    zIndex: 50,
+    backgroundColor: theme.colors.purple[300],
+    color: theme.colors.whiteAlpha[900],
+    padding: {
+      left: 30,
+      right: 30,
+      top: 20,
+      bottom: 20,
+    },
+    boxShadow: "10 10 5 rgba(0, 0, 0, 0.1)",
+  },
+});
 
 function LoginPage() {
   const { theme, colorMode, toggleColorMode, setColorMode } = useChakra();
   const { login, user, logout, loginWithGoogle } = useAuthentication();
+
+  const styles = useStyles();
 
   console.log("Color Scheme", theme.keys);
 
@@ -34,28 +53,39 @@ function LoginPage() {
         numConfetti={250}
         excludeList={["gray", "dark", "blackAlpha", "whiteAlpha"]}
       >
-        <Container
-          style={{
-            position: "relative",
-          }}
-        >
-          <h1>Login</h1>
+        <Container position="relative">
           <motion.div
-            style={{
-              borderRadius: 6,
-              zIndex: 50,
-            }}
+            className={styles.loginForm}
             initial={{ opacity: 0, y: "200%" }}
             animate={{ opacity: 1, y: 0, transition: { duration: 2.5 } }}
             exit={{ opacity: 0 }}
           >
-            <Stack spacing={2} mb={10}>
+            <Heading as="h1" size="xl" mb={5}>
+              Login
+            </Heading>
+            <Stack spacing={2} my={5}>
               <FormLabel>E-mail Address</FormLabel>
               <Input
+                backgroundColor={theme.colors.blackAlpha[300]}
+                color={theme.colors.whiteAlpha[900]}
+                borderColor={theme.colors.blackAlpha[500]}
+                sx={{
+                  _hover: {
+                    borderColor: theme.colors.blackAlpha[800],
+                  },
+                }}
                 placeholder="E-mail Address"
               />
               <FormLabel>Password</FormLabel>
               <Input
+                backgroundColor={theme.colors.blackAlpha[300]}
+                color={theme.colors.whiteAlpha[900]}
+                borderColor={theme.colors.blackAlpha[500]}
+                sx={{
+                  _hover: {
+                    borderColor: theme.colors.blackAlpha[800],
+                  },
+                }}
                 placeholder="Password"
               />
               <Button colorScheme="purple" mt={10}>
@@ -64,7 +94,7 @@ function LoginPage() {
               </Button>
             </Stack>
 
-            <Divider my="lg" />
+            <Divider mb={5} />
             <Button
               colorScheme="purple"
               onClick={loginWithGoogle}
@@ -83,7 +113,6 @@ export default LoginPage;
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-
   const { adminApp, adminAuth } = initAdminApp();
 
   try {

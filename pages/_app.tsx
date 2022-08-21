@@ -3,23 +3,23 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AuthenticationProvider } from "../context/AuthenticationContext";
 import { useRouter } from "next/router";
-import {
-  MantineProvider,
-  AppShell,
-  Navbar,
-  ColorScheme,
-  ColorSchemeProvider,
-  Center,
-  useMantineTheme,
-} from "@mantine/core";
-import ProtectedRoute from "../modules/auth/ProtectedRoute";
 import Nav from "../modules/layout/nav/Nav";
 import { AnimatePresence, motion } from "framer-motion";
-import { vw } from "../utils/functions/getDimensions";
-import useRainbow from "../utils/functions/useRainbow";
+import { createUseStyles } from "react-jss";
 import { Button, ChakraProvider } from "@chakra-ui/react";
 
-const allowedRoutes = ["/", "/login", "/register"];
+const useStyles = createUseStyles({
+  '@global': {
+    body: {
+      padding: 0,
+      margin: 0,
+      fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+      overflow: "hidden",
+      height: "100vh",
+      width: "100vw",
+    }
+  }
+});
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [opened, setOpened] = useState(false);

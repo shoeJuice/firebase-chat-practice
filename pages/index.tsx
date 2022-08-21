@@ -3,10 +3,9 @@ import Head from "next/head";
 import { WordSwitcher } from "../modules/layout/WordSwitcher";
 import { motion } from "framer-motion";
 import { Button, useChakra, Center } from "@chakra-ui/react";
-import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { NextLink } from "@mantine/next";
-
+import { createUseStyles } from "react-jss";
 import * as admin from "firebase-admin";
 import { firebaseAdminConfig } from "../config/FirebaseApp";
 import nookies from "nookies";
@@ -16,8 +15,12 @@ import {
   InferGetServerSidePropsType,
 } from "next";
 import InitAdminApp from "../modules/auth/InitAdminApp";
+import useHomeStyle from "../modules/jss/home_styles"
+
 
 const Home: NextPage = () => {
+  const styles = useHomeStyle();
+
   return (
     <div className={styles.fullPage}>
       <Head>
@@ -36,20 +39,14 @@ const Home: NextPage = () => {
             cupiditate quas voluptatem laboriosam. Enim, voluptatem?
           </p>
 
-          <div>
+          <div className={styles.button}>
             <NextLink href="/register">
-              <Button mt={20} size="lg">
-                Register Today!
-              </Button>
+              <Button size="lg">Register Today!</Button>
             </NextLink>
           </div>
-          <div
-            style={{
-              width: "70%",
-            }}
-          >
+          <div className={styles.button}>
             <NextLink href="/login">
-              <Button mt={10}>
+              <Button>
                 If you already have an account, click here to log in.
               </Button>
             </NextLink>
