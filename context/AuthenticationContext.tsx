@@ -13,6 +13,11 @@ const AuthenticationContext = createContext<any>({});
 
 export const useAuthentication = () => useContext(AuthenticationContext);
 
+/**
+ * The context provider for the authentication context. Normally,
+ * all front-end logic that makes use of the client's authentication state
+ * should be placed here.
+ */
 export const AuthenticationProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -58,7 +63,7 @@ export const AuthenticationProvider = ({ children }: any) => {
     setUser(null);
     await signOut(getFirebaseAuth()).then(() => {
       nookies.destroy(undefined, 'token', {path: '/'});
-      router.push("./");
+      router.push("./login");
     })
   };
 

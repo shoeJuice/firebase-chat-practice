@@ -20,26 +20,19 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import styles from "../styles/Register.module.css";
 import React from "react";
-import { MotionConfig } from "framer-motion";
-import Image from "next/image";
 import { useRouter } from "next/router";
+import useRegisterStyles, {useMotionStyles} from "../modules/jss/register_styles";
 
 function Register() {
   const { theme, colorMode, setColorMode, toggleColorMode } = useChakra();
   const router = useRouter();
-
+  const styles = useRegisterStyles();
+  const motionStyles = useMotionStyles();
   console.log(theme);
 
   return (
     <motion.div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        zIndex: 0,
-      }}
       animate={{
         backgroundPositionY: "-2000%",
         transition: { duration: 100, ease: "linear", loop: Infinity },
@@ -48,13 +41,13 @@ function Register() {
     >
       <Box boxShadow={"dark-lg"} backgroundColor={"white"} zIndex={3}>
         <motion.div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            padding: 10,
-          }}
+          className={motionStyles.registerPanel}
         >
-          <Button colorScheme="purple" size="lg" onClick={() => router.push('/')}>
+          <Button
+            colorScheme="purple"
+            size="lg"
+            onClick={() => router.push("/")}
+          >
             Back
           </Button>
           <Flex
@@ -94,9 +87,10 @@ function Register() {
                   <FormLabel htmlFor="password">Confirm Password</FormLabel>
                   <Input />
                 </FormControl>
-                <FormControl mt={4}>
-                </FormControl>
-                <Button colorScheme="purple" size="lg" mt={10}>Register</Button>
+                <FormControl mt={4}></FormControl>
+                <Button colorScheme="purple" size="lg" mt={10}>
+                  Register
+                </Button>
               </Box>
             </Flex>
           </Flex>

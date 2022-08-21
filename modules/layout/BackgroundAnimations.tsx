@@ -9,6 +9,13 @@
 import { useEffect, useState } from "react";
 import useRainbow from "../../utils/functions/useRainbow";
 import { motion, useAnimationControls } from "framer-motion";
+import injectSheet, { createUseStyles } from "react-jss";
+import { StyledConfetti } from "../jss/animation/Confetti";
+import {
+  useAnimationStyles,
+  useConfettiStyles,
+  childStyle
+} from "../jss/animation/AnimationBackground";
 
 type ConfettiProps = {
   children?: React.ReactNode;
@@ -42,6 +49,9 @@ const ConfettiAnimation = ({
   const rainbowArray = useRainbow(opacity, excludeList);
   const confettiControls = useAnimationControls();
   const backgroundControls = useAnimationControls();
+  const confettiBackground = useConfettiStyles();
+  const background = useAnimationStyles();
+  const content = childStyle();
 
   useEffect(() => {
     backgroundControls.start({
@@ -50,23 +60,25 @@ const ConfettiAnimation = ({
         duration: 1,
         ease: "linear",
       },
-    })
+    });
   }, []);
 
   if (typeof window != "undefined") {
     window.addEventListener("focus", () => {
       console.log("Window has focus");
-      confettiControls.start(({durationSpread, repeatSpread, delaySpread}) => ({
-        y: `97vh`,
-        opacity: 1,
-        transition: {
-          duration: durationSpread,
-          repeat: Infinity,
-          ease: "linear",
-          repeatDelay: repeatSpread,
-          delay: delaySpread,
-        },
-      }));
+      confettiControls.start(
+        ({ durationSpread, repeatSpread, delaySpread }) => ({
+          y: `97vh`,
+          opacity: 1,
+          transition: {
+            duration: durationSpread,
+            repeat: Infinity,
+            ease: "linear",
+            repeatDelay: repeatSpread,
+            delay: delaySpread,
+          },
+        })
+      );
     });
     window.addEventListener("blur", () => {
       console.log("Window lost focus");
@@ -80,28 +92,18 @@ const ConfettiAnimation = ({
 
   return (
     <motion.div
-      style={{
-        display: "flex",
-        minHeight: "100vh",
-        maxWidth: "100vw",
-      }}
-      
-      exit={{opacity: 0}}
+      className={background.background}
+      exit={{ opacity: 0 }}
     >
       <motion.div
-        style={{
-          position: "absolute",
-          zIndex: -1,
-          width: "100%",
-          height: "100%",
-        }}
+        className={confettiBackground.background}
         initial={{ opacity: 0 }}
         animate={backgroundControls}
       >
         {Array.from({ length: numConfetti ? numConfetti : 100 }).map(
           (index, key) => {
             // @ts-ignore
-            const xSpread = Math.floor(Math.random() * windowWidth - 3);
+            const xSpread = Math.floor(Math.random() * windowWidth - 20);
             const durationSpread = Math.floor(Math.random() * 100) + 35;
             const repeatSpread = Math.floor(Math.random() * 10) + 1;
             const delaySpread = Math.floor(Math.random() * 60) + 1;
@@ -110,10 +112,38 @@ const ConfettiAnimation = ({
               durationSpread,
               repeatSpread,
               delaySpread,
-            }
-            
+            };
+
             return (
-              <motion.div
+              <StyledConfetti
+                key={key}
+                rainbowArray={rainbowArray}
+                xSpread={xSpread}
+                custom={customConfig}
+                animate={{
+                  y: `95vh`,
+                  opacity: [1, 0],
+                  transition: {
+                    duration: durationSpread,
+                    repeat: Infinity,
+                    ease: "linear",
+                    repeatDelay: repeatSpread,
+                    delay: delaySpread,
+                  },
+                }}
+              />
+            );
+          }
+        )}
+      </motion.div>
+      <div className={content.pageContent}>{children}</div>
+    </motion.div>
+  );
+};
+
+export { ConfettiAnimation };
+
+/* <motion.div
                 key={key}
                 style={{
                   position: "absolute",
@@ -140,14 +170,4 @@ const ConfettiAnimation = ({
                     delay: delaySpread,
                   },
                 }}
-              />
-            );
-          }
-        )}
-      </motion.div>
-      <div style={{ margin: "auto" }}>{children}</div>
-    </motion.div>
-  );
-};
-
-export { ConfettiAnimation };
+              /> */
