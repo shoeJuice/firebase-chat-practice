@@ -26,6 +26,7 @@ import ChatContainer from "../../modules/chat/ChatContainer";
 import styles from "../../styles/Chat.module.css";
 import Link from "next/link";
 import { VStack, Button } from "@chakra-ui/react";
+import initAdminApp from "../../modules/auth/InitAdminApp";
 
 const Room = ({ roomID, roomName }: any) => {
   const firestore = getFirestoreDB();
@@ -63,8 +64,12 @@ const Room = ({ roomID, roomName }: any) => {
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
+  const { adminApp, adminAuth } = initAdminApp();
+
   try {
-    const token = nookies.get(ctx);
+    const cookies = nookies.get(ctx);
+    const token = await adminAuth.verifyIdToken(cookies.token);
+    const { uid, email } = token;
     const { roomID } = ctx.query;
     const currentRoom = doc(
       collection(getFirestoreDB(), "rooms"),
@@ -72,7 +77,6 @@ export const getServerSideProps: GetServerSideProps = async (
     );
     let roomName = "";
     await getDoc(currentRoom).then((doc) => {
-      console.log(doc);
       roomName = doc.data()?.title;
     });
 
@@ -84,11 +88,12 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   } catch (e) {
     console.error(e);
-  }
+    ctx.res.writeHead(302, { location: "/" });
 
-  return {
-    props: {} as never,
-  };
+    return {
+      props: {} as never,
+    };
+  }
 };
 
 export default Room;

@@ -13,8 +13,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import ProtectedRoute from "../modules/auth/ProtectedRoute";
-import Nav from "../modules/nav/Nav";
-import Header from "../modules/layout/Header";
+import Nav from "../modules/layout/nav/Nav";
 import { AnimatePresence, motion } from "framer-motion";
 import { vw } from "../utils/functions/getDimensions";
 import useRainbow from "../utils/functions/useRainbow";

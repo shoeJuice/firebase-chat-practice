@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
+import initAdminApp from "../modules/auth/InitAdminApp";
 
 
 
@@ -83,16 +84,24 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
 
-  const cookies = nookies.get(context);
-  const token = cookies.token;
+  const { adminApp, adminAuth } = initAdminApp();
 
-  if (token) {
-    context.res.writeHead(302, {location: '/rooms'});
+  try {
+    const cookies = nookies.get(context);
+    const token = await adminAuth.verifyIdToken(cookies.token);
+    context.res.writeHead(302, { location: "/rooms" });
     context.res.end();
-    return {props: {}};
+    return {
+      props: {
+        uid: token.uid,
+        email: token.email,
+      },
+    };
+  } catch (e) {
+    context.res.writeHead(302, { location: "/" });
+    context.res.end();
+    return {
+      props: {} as never,
+    };
   }
-
-  return {
-    props: {},
-  };
 };

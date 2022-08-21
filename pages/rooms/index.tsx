@@ -30,15 +30,14 @@ import {
   Text,
   useChakra,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  HStack
+  HStack,
+  Heading,
+  Spinner,
 } from "@chakra-ui/react";
 import { getFirebaseAuth } from "../../config/FirebaseApp";
+import { CustomModal } from "../../modules/widgets/CustomModal";
+import { MainLayout } from "../../modules/layout/MainLayout";
+import initAdminApp from "../../modules/auth/InitAdminApp";
 
 const Rooms = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -51,68 +50,26 @@ const Rooms = (
   const [values, loading, error] = useCollection(
     collection(firestore, "rooms")
   );
-  const {theme, colorMode, toggleColorMode, setColorMode} = useChakra();
+  const { theme, colorMode, toggleColorMode, setColorMode } = useChakra();
 
   if (props.uid) {
     return (
       props.uid &&
       (loading ? (
-        <div>Loading...</div>
+        <MainLayout>
+          <Spinner />
+        </MainLayout>
       ) : (
-        <Container>
-          <Title mb={2} order={2}>
-            Rooms
-          </Title>
-          <Button
-            mb={40}
-            onClick={() => {
-              setOpened(true);
-            }}
-          >
-            Create Room
-          </Button>
-          <Modal
-            isOpen={opened}
-            onClose={() => setOpened(false)}
-            title="Create a new room"
-          >
-            <HStack mb={10}>
-              <TextInput
-                label="Room name"
-                onChange={(e) => {
-                  setRoomName(e.target.value);
-                }}
-              />
-              <TextInput
-                label="Room description"
-                onChange={(e) => {
-                  setRoomDescription(e.target.value);
-                }}
-              />
-            </HStack>
-            <Button
-              onClick={async () => {
-                let newDoc = await addDoc(collection(firestore, "rooms"), {
-                  title: roomName,
-                  description: roomDescription,
-                });
-                console.log(
-                  `Room ${roomName} gets created. Description: ${roomDescription}`
-                );
-                router.push(`/rooms/${newDoc.id}`);
-                setOpened(false);
-              }}
-            >
-              Create
-            </Button>
-          </Modal>
+        <MainLayout>
+          <Heading mb={2}>Rooms</Heading>
+          <CustomModal />
           {values?.docs.map((value, key) => {
             return (
               <div key={value.id}>
                 <Tooltip label={value.data().description} placement="bottom">
                   <Button
                     variant="unstyled"
-                    mb={20}
+                    my={10}
                     onClick={() => router.push(`rooms/${value.id}`)}
                   >
                     {value.data().title}
@@ -121,7 +78,7 @@ const Rooms = (
               </div>
             );
           })}
-        </Container>
+        </MainLayout>
       ))
     );
   } else if (props.error) {
@@ -132,16 +89,7 @@ const Rooms = (
 export const getServerSideProps: GetServerSideProps = async (
   ctx: GetServerSidePropsContext
 ) => {
-  let adminAuth = null;
-  let adminApp = null;
-  if (admin.apps.length == 0) {
-    adminApp = admin.initializeApp({
-      credential: admin.credential.cert(firebaseAdminConfig),
-    });
-    adminAuth = admin.auth(adminApp);
-  } else {
-    adminAuth = admin.auth();
-  }
+  const { adminApp, adminAuth } = initAdminApp();
 
   try {
     const cookies = nookies.get(ctx);
