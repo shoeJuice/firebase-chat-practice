@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Stack, Paper, Group } from "@mantine/core";
+import { HStack, Box, VStack } from "@chakra-ui/react";
 import {
   collection,
   getFirestore,
@@ -16,7 +16,7 @@ import { useAuthentication } from "../../context/AuthenticationContext";
 
 const ChatBubble = ({ user, text, isUser, ref }: any) => {
   return (
-    <Paper
+    <Box
       px={15}
       py={10}
       mx={10}
@@ -26,13 +26,13 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
         backgroundColor: isUser ? "#D0EBFF" : "#CED4DA",
       }}
     >
-      <Group>
-        <Stack spacing={1}>
+      <VStack>
+        <HStack spacing={1}>
           {isUser ? null : <span>{user}</span>}
           <p>{text}</p>
-        </Stack>
-      </Group>
-    </Paper>
+        </HStack>
+      </VStack>
+    </Box>
   );
 };
 

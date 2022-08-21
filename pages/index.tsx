@@ -4,18 +4,15 @@ import { WordSwitcher } from "../modules/layout/WordSwitcher";
 import { motion } from "framer-motion";
 import {
   Button,
-  UnstyledButton,
-  useMantineTheme,
-  useMantineColorScheme,
+  useChakra,
   Center,
-} from "@mantine/core";
+} from "@chakra-ui/react";
 import styles from "../styles/Home.module.css";
 import Image from "next/image";
 import { NextLink } from "@mantine/next";
 
 const Home: NextPage = () => {
-  const { colorScheme } = useMantineColorScheme();
-  const theme = useMantineTheme();
+
 
   return (
     <div 
@@ -51,17 +48,11 @@ const Home: NextPage = () => {
             }}
           >
             <NextLink href="/login">
-              <UnstyledButton
+              <Button
                 mt={10}
-                style={{
-                  color:
-                    theme.colorScheme === "dark"
-                      ? theme.colors.whiteAlpha[8]
-                      : theme.colors.blackAlpha[9],
-                }}
               >
                 If you already have an account, click here to log in.
-              </UnstyledButton>
+              </Button>
             </NextLink>
           </div>
         </motion.div>

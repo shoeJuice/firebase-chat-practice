@@ -6,7 +6,7 @@ import {
   collection,
   getFirestore,
 } from "firebase/firestore";
-import { Input, Group, Button } from "@mantine/core";
+import { Input, Button } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";

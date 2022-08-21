@@ -1,14 +1,12 @@
 import {
   Container,
   Stack,
-  TextInput,
-  useMantineTheme,
-  useMantineColorScheme,
-  createStyles,
+  Input,
   Button,
-  Space,
   Divider,
-} from "@mantine/core";
+  useChakra,
+  FormLabel
+} from "@chakra-ui/react";
 import React from "react";
 import { useAuthentication } from "../context/AuthenticationContext";
 import { motion } from "framer-motion";
@@ -16,19 +14,13 @@ import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
 
-const useStyles = createStyles((theme) => ({
-  label: {
-    color: theme.colors.gray[2],
-  },
-}));
+
 
 function LoginPage() {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
-  const { classes } = useStyles();
+  const { theme, colorMode, toggleColorMode, setColorMode } = useChakra();
   const { login, user, logout, loginWithGoogle } = useAuthentication();
 
-  console.log("Color Scheme", colorScheme);
+  console.log("Color Scheme", theme.keys);
 
   return (
     <motion.div
@@ -49,8 +41,6 @@ function LoginPage() {
           <h1>Login</h1>
           <motion.div
             style={{
-              backgroundColor: theme.colors.whiteAlpha[6],
-              padding: theme.spacing.sm,
               borderRadius: 6,
               zIndex: 50,
             }}
@@ -59,19 +49,15 @@ function LoginPage() {
             exit={{ opacity: 0 }}
           >
             <Stack spacing={2} mb={10}>
-              <TextInput
+              <FormLabel>E-mail Address</FormLabel>
+              <Input
                 placeholder="E-mail Address"
-                label="Email"
-                //classNames={{label: classes.label}}
               />
-              <TextInput
+              <FormLabel>Password</FormLabel>
+              <Input
                 placeholder="Password"
-                label="Password"
-                styles={{
-                  label: { color: colorScheme == "light" ? "dark" : "white" },
-                }}
               />
-              <Button color="grape" mt={10}>
+              <Button colorScheme="purple" mt={10}>
                 {" "}
                 Sign In{" "}
               </Button>
@@ -79,7 +65,7 @@ function LoginPage() {
 
             <Divider my="lg" />
             <Button
-              color="grape"
+              colorScheme="purple"
               onClick={loginWithGoogle}
               style={{ width: "100%" }}
             >

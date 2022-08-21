@@ -25,7 +25,7 @@ import ChatInput from "../../modules/chat/ChatInput";
 import ChatContainer from "../../modules/chat/ChatContainer";
 import styles from "../../styles/Chat.module.css";
 import Link from "next/link";
-import { Group, Button } from "@mantine/core";
+import { VStack, Button } from "@chakra-ui/react";
 
 const Room = ({ roomID, roomName }: any) => {
   const firestore = getFirestoreDB();
@@ -48,12 +48,12 @@ const Room = ({ roomID, roomName }: any) => {
 
   return (
     <div className={styles.fullPage}>
-      <Group>
+      <VStack>
         <Link passHref href={"/rooms"}>
           <Button color="grape">Back to Rooms</Button>
         </Link>
         <h1>{roomName}</h1>
-      </Group>
+      </VStack>
       <ChatContainer roomID={roomID} />
       <ChatInput roomID={roomID} />
     </div>

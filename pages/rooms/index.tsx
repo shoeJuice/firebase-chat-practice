@@ -24,15 +24,20 @@ import {
 import Link from "next/link";
 import {
   Button,
-  Modal,
-  Group,
-  TextInput,
+  Input,
   Tooltip,
-  UnstyledButton,
   Container,
-  Title,
-  useMantineTheme,
-} from "@mantine/core";
+  Text,
+  useChakra,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  HStack
+} from "@chakra-ui/react";
 import { getFirebaseAuth } from "../../config/FirebaseApp";
 
 const Rooms = (
@@ -46,7 +51,7 @@ const Rooms = (
   const [values, loading, error] = useCollection(
     collection(firestore, "rooms")
   );
-  const theme = useMantineTheme();
+  const {theme, colorMode, toggleColorMode, setColorMode} = useChakra();
 
   if (props.uid) {
     return (
@@ -67,11 +72,11 @@ const Rooms = (
             Create Room
           </Button>
           <Modal
-            opened={opened}
+            isOpen={opened}
             onClose={() => setOpened(false)}
             title="Create a new room"
           >
-            <Group mb={10}>
+            <HStack mb={10}>
               <TextInput
                 label="Room name"
                 onChange={(e) => {
@@ -84,7 +89,7 @@ const Rooms = (
                   setRoomDescription(e.target.value);
                 }}
               />
-            </Group>
+            </HStack>
             <Button
               onClick={async () => {
                 let newDoc = await addDoc(collection(firestore, "rooms"), {
@@ -104,13 +109,14 @@ const Rooms = (
           {values?.docs.map((value, key) => {
             return (
               <div key={value.id}>
-                <Tooltip label={value.data().description} withArrow>
-                  <UnstyledButton
+                <Tooltip label={value.data().description} placement="bottom">
+                  <Button
+                    variant="unstyled"
                     mb={20}
                     onClick={() => router.push(`rooms/${value.id}`)}
                   >
                     {value.data().title}
-                  </UnstyledButton>
+                  </Button>
                 </Tooltip>
               </div>
             );
