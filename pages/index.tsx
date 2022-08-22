@@ -46,8 +46,8 @@ const Home: NextPage = () => {
           </div>
           <div className={styles.button}>
             <NextLink href="/login">
-              <Button>
-                If you already have an account, click here to log in.
+              <Button variant="unstyled">
+                Returning users log in here.
               </Button>
             </NextLink>
           </div>

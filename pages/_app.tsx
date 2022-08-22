@@ -1,25 +1,35 @@
 import { useState } from "react";
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { AuthenticationProvider } from "../context/AuthenticationContext";
 import { useRouter } from "next/router";
 import Nav from "../modules/layout/nav/Nav";
 import { AnimatePresence, motion } from "framer-motion";
-import { createUseStyles } from "react-jss";
+import injectSheet, { createUseStyles } from "react-jss";
 import { Button, ChakraProvider } from "@chakra-ui/react";
 
-const useStyles = createUseStyles({
-  '@global': {
+const useStyles = {
+  "@global": {
     body: {
       padding: 0,
       margin: 0,
-      fontFamily: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-      overflow: "hidden",
-      height: "100vh",
-      width: "100vw",
-    }
-  }
-});
+      fontFamily:
+        "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
+      maxWidth: "100",
+      maxHeight: "100vh",
+    },
+    '::-webkit-scrollbar-track': {
+      backgroundColor: 'rgba(0,0,0,0.1)',
+    },
+    '::-webkit-scrollbar': {
+      width: 10,
+      height: 10,
+      backgroundColor: 'rgba(0,0,0,0.0)',
+    },
+    '::-webkit-scrollbar-thumb': {
+      backgroundColor: 'gray',
+    },
+  },
+};
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [opened, setOpened] = useState(false);
@@ -47,4 +57,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   );
 }
 
-export default MyApp;
+const StyledApp = injectSheet(useStyles)(MyApp);
+
+export default injectSheet(useStyles)(MyApp);

@@ -33,24 +33,35 @@ import {
   HStack,
   Heading,
   Spinner,
+  Flex,
+  Box,
+  Grid,
+  IconButton,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { getFirebaseAuth } from "../../config/FirebaseApp";
 import { CustomModal } from "../../modules/widgets/CustomModal";
 import { MainLayout } from "../../modules/layout/MainLayout";
 import initAdminApp from "../../modules/auth/InitAdminApp";
+import ChatContainer from "../../modules/chat/ChatContainer";
+import ChatInput from "../../modules/chat/ChatInput";
 
 const Rooms = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
   const router = useRouter();
   const firestore = getFirestoreDB();
-  const [opened, setOpened] = useState<boolean>(false);
+  const [roomID, setRoomID] = useState<string>("");
   const [roomName, setRoomName] = useState<string>("");
-  const [roomDescription, setRoomDescription] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [values, loading, error] = useCollection(
     collection(firestore, "rooms")
   );
   const { theme, colorMode, toggleColorMode, setColorMode } = useChakra();
+
+  useEffect(() => {
+    console.log("Room ID Changed: ", roomID);
+  }, [roomID]);
 
   if (props.uid) {
     return (
@@ -61,23 +72,74 @@ const Rooms = (
         </MainLayout>
       ) : (
         <MainLayout>
-          <Heading mb={2}>Rooms</Heading>
-          <CustomModal />
-          {values?.docs.map((value, key) => {
-            return (
-              <div key={value.id}>
-                <Tooltip label={value.data().description} placement="bottom">
-                  <Button
-                    variant="unstyled"
-                    my={10}
-                    onClick={() => router.push(`rooms/${value.id}`)}
+          <Flex height="100%" width="100%" flexGrow={1}>
+            <Box
+              padding={3}
+              backgroundColor={theme.colors.purple[100]}
+            >
+              <IconButton
+                aria-label="Toggle Rooms Menu"
+                display={["block", "block", "block", "none"]}
+                colorScheme="purple"
+                justifyContent="center"
+                alignItems="center"
+                icon={<HamburgerIcon />}
+                onClick={() => setIsOpen(!isOpen)}
+              />
+              <Box
+                display={[(isOpen ? "block" : "none"), (isOpen ? "block" : "none"), (isOpen ? "block" : "none"), "block"]}
+              >
+                <Heading mb={2}>Rooms</Heading>
+                <CustomModal />
+                {values?.docs.map((value, key) => {
+                  return (
+                    <div key={value.id}>
+                      <Tooltip
+                        label={value.data().description}
+                        placement="bottom"
+                      >
+                        <Button
+                          variant="ghost"
+                          isActive={roomID == value.id}
+                          width="100%"
+                          justifyContent="flex-start"
+                          my={2}
+                          onClick={() => {
+                            setRoomName(value.data().title);
+                            setRoomID(value.id);
+                          }}
+                        >
+                          {value.data().title}
+                        </Button>
+                      </Tooltip>
+                    </div>
+                  );
+                })}
+              </Box>
+            </Box>
+            <Box
+              width="100%"
+              height="100%"
+              backgroundColor={theme.colors.purple[50]}
+            >
+              {roomID != "" && (
+                <Flex
+                  height="100%"
+                  flexDirection="column"
+                  justifyContent="space-between"
+                >
+                  <Heading
+                    backgroundColor={theme.colors.purple[100]}
+                    padding={3}
                   >
-                    {value.data().title}
-                  </Button>
-                </Tooltip>
-              </div>
-            );
-          })}
+                    {roomName}
+                  </Heading>
+                  <ChatContainer roomID={roomID} />
+                  <ChatInput roomID={roomID} />
+                </Flex>
+              )}
+            </Box>
+          </Flex>
         </MainLayout>
       ))
     );

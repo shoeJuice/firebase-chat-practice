@@ -20,22 +20,27 @@ import Nav from "./nav/Nav";
  */
 export const MainLayout = ({ children }: any) => {
   return (
-    <Container
-      maxW="100v"
-      minH="container.xl"
-      backgroundColor={theme.colors.purple[300]}
-      
-    >
-      <Flex width="100%" height="100%">
+    <Box maxW="100%" height="100vh">
+      <Flex height="100%" gap={0} flexDirection={["column", "column", "row", "row"]}>
         <Nav />
-        <Container
-          minW="100%"
-          backgroundColor={theme.colors.gray[100]}
-          padding={10}
+        <Box
+          width="100%"
+          height="100%"
+          backgroundColor={theme.colors.purple[100]}
+          boxShadow="inner"
         >
-          <Box width="80%" boxShadow="md" padding={5} borderRadius={8} color={theme.colors.gray[600]} backgroundColor={theme.colors.whiteAlpha[800]}>{children}</Box>
-        </Container>
+          <Box
+            boxShadow="md"
+            height={["100%", "100%", "100%", "100%"]}
+            margin="auto"
+            color={theme.colors.gray[600]}
+            backgroundColor={theme.colors.whiteAlpha[900]}
+            overflow="auto"
+          >
+            {children}
+          </Box>
+        </Box>
       </Flex>
-    </Container>
+    </Box>
   );
 };

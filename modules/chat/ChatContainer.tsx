@@ -1,6 +1,14 @@
 import React from "react";
 
-import { HStack, Box, VStack } from "@chakra-ui/react";
+import {
+  HStack,
+  Box,
+  VStack,
+  Text,
+  Flex,
+  Spinner,
+  theme,
+} from "@chakra-ui/react";
 import {
   collection,
   getFirestore,
@@ -13,25 +21,27 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 
 import { useAuthentication } from "../../context/AuthenticationContext";
+import ChatInput from "./ChatInput";
 
 const ChatBubble = ({ user, text, isUser, ref }: any) => {
   return (
     <Box
       px={15}
-      py={10}
-      mx={10}
+      py={5}
+      borderRadius={10}
       sx={{
         alignSelf: isUser ? "flex-end" : "flex-start",
         textAlign: isUser ? "right" : "left",
-        backgroundColor: isUser ? "#D0EBFF" : "#CED4DA",
+        backgroundColor: isUser ? "#8a2be2" : "#CED4DA",
+        color: isUser ? "white" : theme.colors.blackAlpha[800],
       }}
     >
-      <VStack>
+      <Flex gap={2} flexDirection="column" justifyContent="flex-start">
+        {!isUser && <Text fontWeight="500">{user}</Text>}
         <HStack spacing={1}>
-          {isUser ? null : <span>{user}</span>}
           <p>{text}</p>
         </HStack>
-      </VStack>
+      </Flex>
     </Box>
   );
 };
@@ -51,18 +61,18 @@ const ChatContainer = ({ roomID }: any) => {
   }, [messages]);
 
   return (
-    <div
-      style={{
-        overflowY: "auto",
-        height: "600px",
-        margin: 'auto',
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-      }}
+    <Flex
+      boxShadow="inner"
+      flexDirection="column"
+      height="100%"
+      overflowY="scroll"
+      padding={5}
+      gap={10}
     >
       {loading ? (
-        <div>Loading...</div>
+        <div style={{ margin: "auto" }}>
+          <Spinner size="xl" />
+        </div>
       ) : (
         messages?.map((message, key) => {
           if (message.user == user.displayName) {
@@ -89,7 +99,7 @@ const ChatContainer = ({ roomID }: any) => {
                 ref={messageEndRef}
                 style={{
                   display: "flex",
-                  width: "50%",
+                  width: "70%",
                 }}
               >
                 <ChatBubble user={message.user} text={message.text} key={key} />
@@ -98,7 +108,7 @@ const ChatContainer = ({ roomID }: any) => {
           }
         })
       )}
-    </div>
+    </Flex>
   );
 };
 

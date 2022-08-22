@@ -23,7 +23,7 @@ const useStyles = createUseStyles({
     borderRadius: 6,
     zIndex: 50,
     backgroundColor: theme.colors.purple[300],
-    color: theme.colors.whiteAlpha[900],
+    color: theme.colors.gray[50],
     padding: {
       left: 30,
       right: 30,
@@ -67,24 +67,30 @@ function LoginPage() {
               <FormLabel>E-mail Address</FormLabel>
               <Input
                 backgroundColor={theme.colors.blackAlpha[300]}
-                color={theme.colors.whiteAlpha[900]}
+                color={theme.colors.gray[50]}
                 borderColor={theme.colors.blackAlpha[500]}
                 sx={{
                   _hover: {
                     borderColor: theme.colors.blackAlpha[800],
                   },
+                  _placeholder: {
+                    color: theme.colors.gray[50],
+                  }
                 }}
                 placeholder="E-mail Address"
               />
               <FormLabel>Password</FormLabel>
               <Input
                 backgroundColor={theme.colors.blackAlpha[300]}
-                color={theme.colors.whiteAlpha[900]}
+                color={theme.colors.gray[50]}
                 borderColor={theme.colors.blackAlpha[500]}
                 sx={{
                   _hover: {
                     borderColor: theme.colors.blackAlpha[800],
                   },
+                  _placeholder: {
+                    color: theme.colors.gray[50],
+                  }
                 }}
                 placeholder="Password"
               />

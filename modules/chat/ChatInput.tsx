@@ -6,11 +6,10 @@ import {
   collection,
   getFirestore,
 } from "firebase/firestore";
-import { Input, Button } from "@chakra-ui/react";
+import { Input, Button, theme } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
-import styles from "../../styles/Chat.module.css";
 
 const ChatInput = ({ roomID }: any) => {
   const firestore = getFirestoreDB();
@@ -35,18 +34,26 @@ const ChatInput = ({ roomID }: any) => {
   };
 
   return (
-    <div className={styles.chatInput}>
-        <Input
-          ref={inputRef}
-          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === "Enter") {
-              handleSubmit();
-            }
-          }}
-          style={{ width: "100%" }}
-          placeholder="Type a message..."
-        />
-    </div>
+    <Input
+      ref={inputRef}
+      top={-5}
+      boxShadow="base"
+      position="relative"
+      zIndex={400}
+      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+          handleSubmit();
+        }
+      }}
+      width="95%"
+      margin="auto"
+      backgroundColor={theme.colors.purple[100]}
+      sx={{
+        border: "none",
+      }}
+      padding={7}
+      placeholder="Type a message..."
+    />
   );
 };
 

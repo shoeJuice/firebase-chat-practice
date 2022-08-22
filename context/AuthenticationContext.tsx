@@ -20,10 +20,12 @@ export const useAuthentication = () => useContext(AuthenticationContext);
  */
 export const AuthenticationProvider = ({ children }: any) => {
   const [user, setUser] = useState<any>(null);
+  const [roomName, setRoomName] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
+    console.log("Rerendered")
     const isSubscribed = onAuthStateChanged(getFirebaseAuth(), (user) => {
       if (user) {
         setUser({
@@ -69,7 +71,7 @@ export const AuthenticationProvider = ({ children }: any) => {
 
   return (
     <AuthenticationContext.Provider
-      value={{ user, login, logout, loginWithGoogle }}
+      value={{ user, login, logout, loginWithGoogle, roomName, setRoomName, loading }}
     >
       {loading ? null : children}
     </AuthenticationContext.Provider>

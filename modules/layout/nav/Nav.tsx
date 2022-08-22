@@ -29,29 +29,62 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
 
   return (
     <Stack
-      direction="column"
-      backgroundColor={theme.colors.purple[300]}
+      direction={["row", "row", "column", "column"]}
+      backgroundColor={theme.colors.purple[200]}
       position="relative"
-      minH="container.xl"
-      padding={10}
+      boxShadow="xl"
+      alignItems="flex-start"
+      justifyContent={[
+        "space-between",
+        "space-between",
+        "flex-start",
+        "flex-start",
+      ]}
+      padding={5}
       zIndex={100}
+      order={["1", "1", "0", "0"]}
     >
-      <Button colorScheme="purple" aria-label="Chat-Rooms" size="lg">
-        <Icon mr={2} as={HiChatAlt2} />
-        <Text>Rooms</Text>
+      <NextLink href="/rooms">
+        <Button
+          boxShadow="xl"
+          colorScheme="purple"
+          aria-label="Chat-Rooms"
+          size="lg"
+        >
+          <Icon mr={[0, 0, 2, 2]} as={HiChatAlt2} />
+          <Text display={["none", "none", "block", "block"]}>Rooms</Text>
+        </Button>
+      </NextLink>
+
+      <Button
+        boxShadow="xl"
+        colorScheme="purple"
+        aria-label="Profile"
+        size="lg"
+      >
+        <Icon mr={[0, 0, 2, 2]} as={FaUserAlt} />
+        <Text display={["none", "none", "block", "block"]}>Profile</Text>
       </Button>
 
-      <Button colorScheme="purple" aria-label="Chat-Rooms" size="lg">
-        <Icon mr={2} as={FaUserAlt} />
-        <Text>Profile</Text>
+      <Button
+        boxShadow="xl"
+        colorScheme="purple"
+        aria-label="Settings"
+        size="lg"
+      >
+        <Icon mr={[0, 0, 2, 2]} as={FaCog} />
+        <Text display={["none", "none", "block", "block"]}>Settings</Text>
       </Button>
-      <Button colorScheme="purple" aria-label="Chat-Rooms" size="lg">
-        <Icon mr={2} as={FaCog} />
-        <Text>Settings</Text>
-      </Button>
-      <Button colorScheme="purple" aria-label="Chat-Rooms" size="lg" onClick={logout}>
-        <Icon mr={2} as={HiLogout} />
-        <Text>Logout</Text>
+
+      <Button
+        boxShadow="xl"
+        colorScheme="purple"
+        aria-label="Logout"
+        size="lg"
+        onClick={logout}
+      >
+        <Icon mr={[0, 0, 2, 2]} as={HiLogout} />
+        <Text display={["none", "none", "block", "block"]}>Logout</Text>
       </Button>
     </Stack>
   );

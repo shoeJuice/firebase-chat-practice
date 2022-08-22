@@ -142,32 +142,3 @@ const ConfettiAnimation = ({
 };
 
 export { ConfettiAnimation };
-
-/* <motion.div
-                key={key}
-                style={{
-                  position: "absolute",
-                  x: xSpread,
-                  y: "-100%",
-                  zIndex: -(key - 2),
-                  width: "1.5rem",
-                  height: "1.5rem",
-                  borderRadius: "1.5rem",
-                  backgroundColor:
-                    rainbowArray[
-                      Math.floor(Math.random() * rainbowArray.length)
-                    ],
-                }}
-                custom={customConfig}
-                animate={{
-                  y: `95vh`,
-                  opacity: [1, 0],
-                  transition: {
-                    duration: durationSpread,
-                    repeat: Infinity,
-                    ease: "linear",
-                    repeatDelay: repeatSpread,
-                    delay: delaySpread,
-                  },
-                }}
-              /> */

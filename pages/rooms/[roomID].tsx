@@ -23,7 +23,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useAuthentication } from "../../context/AuthenticationContext";
 import ChatInput from "../../modules/chat/ChatInput";
 import ChatContainer from "../../modules/chat/ChatContainer";
-import styles from "../../styles/Chat.module.css";
+
 import Link from "next/link";
 import { VStack, Button } from "@chakra-ui/react";
 import initAdminApp from "../../modules/auth/InitAdminApp";
@@ -48,16 +48,14 @@ const Room = ({ roomID, roomName }: any) => {
   }, []);
 
   return (
-    <div className={styles.fullPage}>
+    <>
       <VStack>
-        <Link passHref href={"/rooms"}>
-          <Button color="grape">Back to Rooms</Button>
-        </Link>
+        
         <h1>{roomName}</h1>
       </VStack>
       <ChatContainer roomID={roomID} />
       <ChatInput roomID={roomID} />
-    </div>
+    </>
   );
 };
 
@@ -97,3 +95,11 @@ export const getServerSideProps: GetServerSideProps = async (
 };
 
 export default Room;
+
+/*
+
+<Link passHref href={"/rooms"}>
+          <Button color="grape">Back to Rooms</Button>
+        </Link>
+
+*/
