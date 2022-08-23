@@ -26,7 +26,7 @@ import ChatInput from "./ChatInput";
 const ChatBubble = ({ user, text, isUser, ref }: any) => {
   return (
     <Box
-      px={15}
+      px={10}
       py={5}
       borderRadius={10}
       sx={{
@@ -38,9 +38,7 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
     >
       <Flex gap={2} flexDirection="column" justifyContent="flex-start">
         {!isUser && <Text fontWeight="500">{user}</Text>}
-        <HStack spacing={1}>
           <p>{text}</p>
-        </HStack>
       </Flex>
     </Box>
   );
@@ -61,13 +59,12 @@ const ChatContainer = ({ roomID }: any) => {
   }, [messages]);
 
   return (
-    <Flex
+    <Box
       boxShadow="inner"
-      flexDirection="column"
       height="100%"
       overflowY="scroll"
       padding={5}
-      gap={10}
+      
     >
       {loading ? (
         <div style={{ margin: "auto" }}>
@@ -82,6 +79,7 @@ const ChatContainer = ({ roomID }: any) => {
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
+                  marginBottom: "10px",
                 }}
               >
                 <ChatBubble
@@ -99,7 +97,7 @@ const ChatContainer = ({ roomID }: any) => {
                 ref={messageEndRef}
                 style={{
                   display: "flex",
-                  width: "70%",
+                  marginBottom: "10px",
                 }}
               >
                 <ChatBubble user={message.user} text={message.text} key={key} />
@@ -108,7 +106,7 @@ const ChatContainer = ({ roomID }: any) => {
           }
         })
       )}
-    </Flex>
+    </Box>
   );
 };
 

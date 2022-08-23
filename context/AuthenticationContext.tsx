@@ -3,10 +3,14 @@ import { useRouter } from "next/router";
 import {
   onAuthStateChanged,
   signInWithPopup,
+  signInWithEmailAndPassword,
   GoogleAuthProvider,
   signOut,
+  createUserWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { getFirebaseAuth, providers } from "../config/FirebaseApp";
+import useAdminApp from "../modules/auth/InitAdminApp";
 import nookies from 'nookies';
 
 const AuthenticationContext = createContext<any>({});
@@ -41,8 +45,38 @@ export const AuthenticationProvider = ({ children }: any) => {
     setLoading(false);
   }, []);
 
-  const login = async (provider: any) => {
-    return await signInWithPopup(getFirebaseAuth(), provider).catch(
+  const registerWithEmailAndPassword = async (email: string, password: string, username: string) => {
+    return await createUserWithEmailAndPassword(getFirebaseAuth(), email, password)
+    .then(async(credentials) => {
+      let authInstance = getFirebaseAuth();
+      const token = await credentials.user.getIdToken();
+      onAuthStateChanged(authInstance, (user) => {
+        if (user) {
+        updateProfile(user, {displayName: username});
+        setUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        });
+        }
+      })
+      nookies.set(undefined, 'token', token, {path: '/'});
+      router.push('/');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
+  const login = async (email: any, password: any) => {
+    return await signInWithEmailAndPassword(getFirebaseAuth(), email, password)
+    .then(async(credentials) => {
+      const token = await credentials.user.getIdToken();
+      nookies.set(undefined, 'token', token, {path: '/'});
+      router.push("/rooms");
+    })
+    .catch(
       (error) => {
         console.log(error.message);
       }
@@ -71,7 +105,7 @@ export const AuthenticationProvider = ({ children }: any) => {
 
   return (
     <AuthenticationContext.Provider
-      value={{ user, login, logout, loginWithGoogle, roomName, setRoomName, loading }}
+      value={{ user, login, logout, loginWithGoogle, roomName, setRoomName, loading, registerWithEmailAndPassword }}
     >
       {loading ? null : children}
     </AuthenticationContext.Provider>

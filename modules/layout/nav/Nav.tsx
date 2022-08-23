@@ -33,14 +33,14 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
       backgroundColor={theme.colors.purple[200]}
       position="relative"
       boxShadow="xl"
-      alignItems="flex-start"
+      alignItems={["center", "flex-start"]}
       justifyContent={[
         "space-between",
         "space-between",
         "flex-start",
         "flex-start",
       ]}
-      padding={5}
+      padding={10}
       zIndex={100}
       order={["1", "1", "0", "0"]}
     >
@@ -50,6 +50,7 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           colorScheme="purple"
           aria-label="Chat-Rooms"
           size="lg"
+          width="100%"
         >
           <Icon mr={[0, 0, 2, 2]} as={HiChatAlt2} />
           <Text display={["none", "none", "block", "block"]}>Rooms</Text>
@@ -61,6 +62,7 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         colorScheme="purple"
         aria-label="Profile"
         size="lg"
+        width="100%"
       >
         <Icon mr={[0, 0, 2, 2]} as={FaUserAlt} />
         <Text display={["none", "none", "block", "block"]}>Profile</Text>
@@ -71,6 +73,7 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         colorScheme="purple"
         aria-label="Settings"
         size="lg"
+        width="100%"
       >
         <Icon mr={[0, 0, 2, 2]} as={FaCog} />
         <Text display={["none", "none", "block", "block"]}>Settings</Text>
@@ -82,6 +85,7 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         aria-label="Logout"
         size="lg"
         onClick={logout}
+        width="100%"
       >
         <Icon mr={[0, 0, 2, 2]} as={HiLogout} />
         <Text display={["none", "none", "block", "block"]}>Logout</Text>

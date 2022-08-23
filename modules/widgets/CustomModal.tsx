@@ -43,7 +43,6 @@ export const CustomModal = () => {
     
     setOpened(false);
     onClose();
-    router.push(`/rooms/${newDoc.id}`);
   };
   return (
     <>

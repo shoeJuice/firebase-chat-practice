@@ -8,7 +8,7 @@ import { firebaseAdminConfig } from "../../config/FirebaseApp";
  * @returns {Object} An object containing references to the 
  * firebaseApp and its authentication service.
  */
-export default function initAdminApp() {
+export default function useAdminApp() {
   let adminAuth = null;
   let adminApp = null;
   if (admin.apps.length == 0) {

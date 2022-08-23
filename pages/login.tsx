@@ -37,7 +37,10 @@ const useStyles = createUseStyles({
 function LoginPage() {
   const { theme, colorMode, toggleColorMode, setColorMode } = useChakra();
   const { login, user, logout, loginWithGoogle } = useAuthentication();
-
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+  const emailRef = React.useRef<HTMLInputElement>(null);
+  const passwordRef = React.useRef<HTMLInputElement>(null);
   const styles = useStyles();
 
   console.log("Color Scheme", theme.keys);
@@ -78,6 +81,7 @@ function LoginPage() {
                   }
                 }}
                 placeholder="E-mail Address"
+                ref={emailRef}
               />
               <FormLabel>Password</FormLabel>
               <Input
@@ -93,8 +97,11 @@ function LoginPage() {
                   }
                 }}
                 placeholder="Password"
+                ref={passwordRef}
               />
-              <Button colorScheme="purple" mt={10}>
+              <Button colorScheme="purple" mt={10} onClick={() => {
+                login(emailRef.current?.value, passwordRef.current?.value);
+              }}>
                 {" "}
                 Sign In{" "}
               </Button>
@@ -120,7 +127,7 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { adminApp, adminAuth } = initAdminApp();
-
+  
   try {
     const cookies = nookies.get(context);
     const token = await adminAuth.verifyIdToken(cookies.token);
@@ -133,8 +140,7 @@ export const getServerSideProps: GetServerSideProps = async (
       },
     };
   } catch (e) {
-    context.res.writeHead(302, { location: "/" });
-    context.res.end();
+    console.log("No user detected\nUser:", context.req.headers["user-agent"])
     return {
       props: {} as never,
     };
