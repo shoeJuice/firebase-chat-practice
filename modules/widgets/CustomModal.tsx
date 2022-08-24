@@ -25,7 +25,7 @@ import { getFirestoreDB } from "../../config/FirebaseApp";
  * @returns \<Modal\> component
  */
 
-export const CustomModal = () => {
+export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
   const router = useRouter();
   const firestore = getFirestoreDB();
   const [opened, setOpened] = useState(false);
@@ -36,11 +36,18 @@ export const CustomModal = () => {
     let newDoc = await addDoc(collection(firestore, "rooms"), {
       title: roomName,
       description: roomDescription,
-    });
+    })
+      .then((doc) => {
+        roomIDHandler(doc.id);
+        roomNameHandle(roomName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     console.log(
       `Room ${roomName} gets created. Description: ${roomDescription}`
     );
-    
+
     setOpened(false);
     onClose();
   };

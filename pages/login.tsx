@@ -126,7 +126,7 @@ export default LoginPage;
 export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
-  const { adminApp, adminAuth } = initAdminApp();
+  const { adminAuth } = initAdminApp();
 
   try {
     const cookies = nookies.get(context);

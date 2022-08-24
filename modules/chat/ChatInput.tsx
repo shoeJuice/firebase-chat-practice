@@ -4,9 +4,8 @@ import {
   addDoc,
   serverTimestamp,
   collection,
-  getFirestore,
 } from "firebase/firestore";
-import { Input, Button, theme, useColorMode } from "@chakra-ui/react";
+import { Input, theme, useColorMode } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
@@ -50,6 +49,9 @@ const ChatInput = ({ roomID }: any) => {
       backgroundColor={colorMode == "dark" ? theme.colors.purple[300] : theme.colors.purple[100]}
       sx={{
         border: "none",
+        _placeholder: {
+          color: theme.colors.purple[800],
+        }
       }}
       padding={7}
       placeholder="Type a message..."

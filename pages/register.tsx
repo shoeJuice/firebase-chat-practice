@@ -1,9 +1,5 @@
 import {
-  Container,
-  Grid,
-  HStack,
   Input,
-  Stack,
   Button,
   Text,
   useChakra,
@@ -14,10 +10,7 @@ import {
   FormControl,
   Heading,
   useColorModeValue,
-  InputGroup,
-  InputRightElement,
-  Link,
-  useColorMode,
+
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
@@ -26,7 +19,7 @@ import useRegisterStyles, {useMotionStyles} from "../modules/jss/register_styles
 import { useAuthentication } from "../context/AuthenticationContext";
 
 function Register() {
-  const { theme, colorMode, setColorMode, toggleColorMode } = useChakra();
+  const { theme } = useChakra();
   const router = useRouter();
   const styles = useRegisterStyles();
   const motionStyles = useMotionStyles();

@@ -5,7 +5,10 @@ import { firebaseAdminConfig } from "../../config/FirebaseApp";
  * Initialize the Firebase admin SDK,
  *  or return the existing instance if it's already initialized.
  *
- * @returns {Object} An object containing references to the 
+ * @note This method makes use of the Firebase admin SDK, which is not
+ * available in the browser. Use this method only with server-side functions.
+ *
+ * @returns {Object} An object containing references to the
  * firebaseApp and its authentication service.
  */
 export default function useAdminApp() {

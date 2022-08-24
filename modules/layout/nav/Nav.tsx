@@ -10,6 +10,7 @@ import {
   theme,
   IconButton,
   Icon,
+  HStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
@@ -38,17 +39,19 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           : theme.colors.purple[200]
       }
       position="relative"
-      boxShadow="xl"
-      alignItems={["center", "flex-start"]}
+      boxShadow={["dark-lg", "dark-lg", "xl", "xl"]}
+      alignItems={["center", "center", "flex-start", "flex-start"]}
       justifyContent={[
         "space-between",
         "space-between",
         "flex-start",
         "flex-start",
       ]}
-      padding={10}
+      padding={5}
       zIndex={100}
       order={["1", "1", "0", "0"]}
+      flex={1}
+    
     >
       <NextLink href="/rooms">
         <Button
@@ -58,8 +61,14 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           size="lg"
           width="100%"
         >
-          <Icon mr={[0, 0, 2, 2]} as={HiChatAlt2} />
-          <Text display={["none", "none", "block", "block"]}>Rooms</Text>
+          <HStack
+            spacing={2}
+            justifyContent={["center", "center", "flex-start", "flex-start"]}
+            width="100%"
+          >
+            <Icon as={HiChatAlt2} />
+            <Text display={["none", "none", "block", "block"]}>Rooms</Text>
+          </HStack>
         </Button>
       </NextLink>
 
@@ -70,8 +79,14 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         size="lg"
         width="100%"
       >
-        <Icon mr={[0, 0, 2, 2]} as={FaUserAlt} />
-        <Text display={["none", "none", "block", "block"]}>Profile</Text>
+        <HStack
+          spacing={2}
+          justifyContent={["center", "center", "flex-start", "flex-start"]}
+          width="100%"
+        >
+          <Icon as={FaUserAlt} />
+          <Text display={["none", "none", "block", "block"]}>Profile</Text>
+        </HStack>
       </Button>
 
       <NextLink href="/settings">
@@ -82,8 +97,14 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           size="lg"
           width="100%"
         >
-          <Icon mr={[0, 0, 2, 2]} as={FaCog} />
-          <Text display={["none", "none", "block", "block"]}>Settings</Text>
+          <HStack
+            spacing={2}
+            justifyContent={["center", "center", "flex-start", "flex-start"]}
+            width="100%"
+          >
+            <Icon as={FaCog} />
+            <Text display={["none", "none", "block", "block"]}>Settings</Text>
+          </HStack>
         </Button>
       </NextLink>
 
@@ -95,8 +116,14 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         onClick={logout}
         width="100%"
       >
-        <Icon mr={[0, 0, 2, 2]} as={HiLogout} />
-        <Text display={["none", "none", "block", "block"]}>Logout</Text>
+        <HStack
+          spacing={2}
+          justifyContent={["center", "center", "flex-start", "flex-start"]}
+          width="100%"
+        >
+          <Icon as={HiLogout} />
+          <Text display={["none", "none", "block", "block"]}>Logout</Text>
+        </HStack>
       </Button>
     </Stack>
   );

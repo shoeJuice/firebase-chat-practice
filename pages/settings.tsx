@@ -23,9 +23,9 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-
+import nookies from "nookies";
 import { MainLayout } from "../modules/layout/MainLayout";
-import { NextPage } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 const SettingsPage: NextPage = () => {
@@ -33,7 +33,7 @@ const SettingsPage: NextPage = () => {
 
   return (
     <MainLayout>
-      <Container p={5} maxW="container.lg" height="container.md">
+      <Container p={5} maxW={"container.lg"} height={["max", "container.md"]}>
         <Box
           borderRadius={8}
           backgroundColor={
@@ -42,7 +42,8 @@ const SettingsPage: NextPage = () => {
               : theme.colors.purple[200]
           }
           color={theme.colors.whiteAlpha[800]}
-          p={5}
+          px={5}
+          py={10}
           boxShadow="xl"
           width="100%"
           height="100%"
@@ -115,10 +116,10 @@ const SettingsPage: NextPage = () => {
                       },
                       _focus: {
                         backgroundColor:
-                            colorMode == "dark"
-                                ? theme.colors.blackAlpha[600]
-                                : theme.colors.purple[600],
-                      }
+                          colorMode == "dark"
+                            ? theme.colors.blackAlpha[600]
+                            : theme.colors.purple[600],
+                      },
                     }}
                   >
                     English
@@ -133,10 +134,10 @@ const SettingsPage: NextPage = () => {
                       },
                       _focus: {
                         backgroundColor:
-                            colorMode == "dark"
-                                ? theme.colors.blackAlpha[600]
-                                : theme.colors.purple[600],
-                      }
+                          colorMode == "dark"
+                            ? theme.colors.blackAlpha[600]
+                            : theme.colors.purple[600],
+                      },
                     }}
                   >
                     Spanish
@@ -151,10 +152,10 @@ const SettingsPage: NextPage = () => {
                       },
                       _focus: {
                         backgroundColor:
-                            colorMode == "dark"
-                                ? theme.colors.blackAlpha[600]
-                                : theme.colors.purple[600],
-                      }
+                          colorMode == "dark"
+                            ? theme.colors.blackAlpha[600]
+                            : theme.colors.purple[600],
+                      },
                     }}
                   >
                     French
@@ -167,6 +168,40 @@ const SettingsPage: NextPage = () => {
       </Container>
     </MainLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  try {
+    const cookies = nookies.get(context);
+    const { token } = cookies;
+    if (!token) {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/login",
+        },
+        props: {
+          token: null,
+        },
+      };
+    }
+    return {
+      props: {
+        token,
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+      props: {},
+    };
+  }
 };
 
 export default SettingsPage;

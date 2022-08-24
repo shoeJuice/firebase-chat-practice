@@ -10,19 +10,15 @@ import { Button, ChakraProvider } from "@chakra-ui/react";
 const useStyles = {
   "@global": {
     body: {
-      padding: 0,
-      margin: 0,
       fontFamily:
         "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif",
-      maxWidth: "100",
-      maxHeight: "100vh",
-    },
+
+      },
     '::-webkit-scrollbar-track': {
       backgroundColor: 'rgba(0,0,0,0.1)',
     },
     '::-webkit-scrollbar': {
-      width: 10,
-      height: 10,
+
       backgroundColor: 'rgba(0,0,0,0.0)',
     },
     '::-webkit-scrollbar-thumb': {

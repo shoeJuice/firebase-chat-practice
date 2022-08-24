@@ -1,27 +1,12 @@
 import React from "react";
 
-import {
-  HStack,
-  Box,
-  VStack,
-  Text,
-  Flex,
-  Spinner,
-  theme,
-} from "@chakra-ui/react";
-import {
-  collection,
-  getFirestore,
-  query,
-  doc,
-  getDoc,
-  orderBy,
-} from "firebase/firestore";
+import { Box, Text, Flex, Spinner, theme } from "@chakra-ui/react";
+import { collection, query, orderBy } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 
 import { useAuthentication } from "../../context/AuthenticationContext";
-import ChatInput from "./ChatInput";
+
 
 const ChatBubble = ({ user, text, isUser, ref }: any) => {
   return (
@@ -38,7 +23,7 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
     >
       <Flex gap={2} flexDirection="column" justifyContent="flex-start">
         {!isUser && <Text fontWeight="500">{user}</Text>}
-          <p>{text}</p>
+        <p>{text}</p>
       </Flex>
     </Box>
   );
@@ -54,7 +39,6 @@ const ChatContainer = ({ roomID }: any) => {
   const [messages, loading, error] = useCollectionData(messagesQuery);
   const messageEndRef = React.useRef<null | HTMLDivElement>(null);
   React.useEffect(() => {
-    console.log("Bingo!");
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -65,7 +49,6 @@ const ChatContainer = ({ roomID }: any) => {
       width="100%"
       overflowY="scroll"
       padding={5}
-      
     >
       {loading ? (
         <div style={{ margin: "auto" }}>
