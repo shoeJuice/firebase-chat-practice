@@ -45,6 +45,7 @@ import { MainLayout } from "../../modules/layout/MainLayout";
 import initAdminApp from "../../modules/auth/InitAdminApp";
 import ChatContainer from "../../modules/chat/ChatContainer";
 import ChatInput from "../../modules/chat/ChatInput";
+import Sidebar from "../../modules/chat/Sidebar";
 
 const Rooms = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -73,54 +74,11 @@ const Rooms = (
       ) : (
         <MainLayout>
           <Flex height="100%" width="100%" flexGrow={1}>
-            <Box
-              padding={3}
-              backgroundColor={theme.colors.purple[100]}
-            >
-              <IconButton
-                aria-label="Toggle Rooms Menu"
-                display={["block", "block", "block", "none"]}
-                colorScheme="purple"
-                justifyContent="center"
-                alignItems="center"
-                icon={<HamburgerIcon />}
-                onClick={() => setIsOpen(!isOpen)}
-              />
-              <Box
-                display={[(isOpen ? "block" : "none"), (isOpen ? "block" : "none"), (isOpen ? "block" : "none"), "block"]}
-              >
-                <Heading mb={2}>Rooms</Heading>
-                <CustomModal />
-                {values?.docs.map((value, key) => {
-                  return (
-                    <div key={value.id}>
-                      <Tooltip
-                        label={value.data().description}
-                        placement="bottom"
-                      >
-                        <Button
-                          variant="ghost"
-                          isActive={roomID == value.id}
-                          width="100%"
-                          justifyContent="flex-start"
-                          my={2}
-                          onClick={() => {
-                            setRoomName(value.data().title);
-                            setRoomID(value.id);
-                          }}
-                        >
-                          {value.data().title}
-                        </Button>
-                      </Tooltip>
-                    </div>
-                  );
-                })}
-              </Box>
-            </Box>
+            <Sidebar roomID={roomID} roomIDHandle={setRoomID} roomNameHandle={setRoomName} />
             <Box
               width="100%"
               height="100%"
-              backgroundColor={theme.colors.purple[50]}
+              backgroundColor={colorMode == "dark" ? theme.colors.whiteAlpha[50] : theme.colors.purple[50]}
             >
               {roomID != "" && (
                 <Flex
@@ -130,7 +88,8 @@ const Rooms = (
                   justifyContent="space-between"
                 >
                   <Heading
-                    backgroundColor={theme.colors.purple[100]}
+                    backgroundColor={colorMode == "dark" ? theme.colors.whiteAlpha[500] : theme.colors.purple[100]}
+                    color={colorMode == "dark" ? theme.colors.whiteAlpha[800] : theme.colors.purple[800]}
                     padding={3}
                   >
                     {roomName}
@@ -166,9 +125,12 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   } catch (error) {
     console.error(error);
-    ctx.res.writeHead(302, { Location: "/" });
-    ctx.res.end();
+
     return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
       props: {},
     };
   }

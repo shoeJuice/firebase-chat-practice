@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue, useColorMode } from "@chakra-ui/react";
 import Nav from "./nav/Nav";
 
 /**
@@ -19,6 +19,9 @@ import Nav from "./nav/Nav";
  * Use this layout with all pages that need navigation, header, footer, etc.
  */
 export const MainLayout = ({ children }: any) => {
+
+    const { colorMode } = useColorMode();
+
   return (
     <Box maxW="100%" height="100vh">
       <Flex height="100%" gap={0} flexDirection={["column", "column", "row", "row"]}>
@@ -26,7 +29,7 @@ export const MainLayout = ({ children }: any) => {
         <Box
           width="100%"
           height="100%"
-          backgroundColor={theme.colors.purple[100]}
+          backgroundColor={colorMode == "dark" ? theme.colors.blackAlpha[900] : theme.colors.purple[100]}
           boxShadow="inner"
         >
           <Box
@@ -34,7 +37,7 @@ export const MainLayout = ({ children }: any) => {
             height={["100%", "100%", "100%", "100%"]}
             margin="auto"
             color={theme.colors.gray[600]}
-            backgroundColor={theme.colors.whiteAlpha[900]}
+            backgroundColor={theme.colors.whiteAlpha[400]}
             overflow="auto"
           >
             {children}

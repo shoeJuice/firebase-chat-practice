@@ -62,6 +62,7 @@ const ChatContainer = ({ roomID }: any) => {
     <Box
       boxShadow="inner"
       height="100%"
+      width="100%"
       overflowY="scroll"
       padding={5}
       
