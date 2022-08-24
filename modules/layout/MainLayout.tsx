@@ -22,8 +22,9 @@ export const MainLayout = ({ children }: any) => {
 
     const { colorMode } = useColorMode();
 
+
   return (
-    <Box width="100%" height="100vh">
+    <Box width="100%" height={[window.innerHeight, window.innerHeight, "100vh", "100vh"]}>
       <Flex height="100%" flexDirection={["column", "column", "row", "row"]}>
         <Nav />
         <Box
