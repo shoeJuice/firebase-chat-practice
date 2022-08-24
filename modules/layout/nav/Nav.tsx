@@ -6,6 +6,7 @@ import {
   Stack,
   useChakra,
   useColorModeValue,
+  useColorMode,
   theme,
   IconButton,
   Icon,
@@ -17,6 +18,7 @@ import { HiChatAlt2, HiLogout } from "react-icons/hi";
 
 const Nav = ({ hiddenBreakpoint, hidden }: any) => {
   const { login, user, logout } = useAuthentication();
+  const { colorMode } = useColorMode();
 
   const handleLogin = () => {
     if (!user) {
@@ -30,7 +32,11 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
   return (
     <Stack
       direction={["row", "row", "column", "column"]}
-      backgroundColor={theme.colors.purple[200]}
+      backgroundColor={
+        colorMode == "dark"
+          ? theme.colors.whiteAlpha[500]
+          : theme.colors.purple[200]
+      }
       position="relative"
       boxShadow="xl"
       alignItems={["center", "flex-start"]}
@@ -68,16 +74,18 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         <Text display={["none", "none", "block", "block"]}>Profile</Text>
       </Button>
 
-      <Button
-        boxShadow="xl"
-        colorScheme="purple"
-        aria-label="Settings"
-        size="lg"
-        width="100%"
-      >
-        <Icon mr={[0, 0, 2, 2]} as={FaCog} />
-        <Text display={["none", "none", "block", "block"]}>Settings</Text>
-      </Button>
+      <NextLink href="/settings">
+        <Button
+          boxShadow="xl"
+          colorScheme="purple"
+          aria-label="Settings"
+          size="lg"
+          width="100%"
+        >
+          <Icon mr={[0, 0, 2, 2]} as={FaCog} />
+          <Text display={["none", "none", "block", "block"]}>Settings</Text>
+        </Button>
+      </NextLink>
 
       <Button
         boxShadow="xl"

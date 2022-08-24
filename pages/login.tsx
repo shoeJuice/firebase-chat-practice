@@ -22,7 +22,7 @@ const useStyles = createUseStyles({
   loginForm: {
     borderRadius: 6,
     zIndex: 50,
-    backgroundColor: theme.colors.purple[300],
+    backgroundColor: (props: any) => (props.colorMode == "dark" ? theme.colors.whiteAlpha[500] : theme.colors.purple[300]),
     color: theme.colors.gray[50],
     padding: {
       left: 30,
@@ -41,7 +41,7 @@ function LoginPage() {
   const [password, setPassword] = React.useState<string>("");
   const emailRef = React.useRef<HTMLInputElement>(null);
   const passwordRef = React.useRef<HTMLInputElement>(null);
-  const styles = useStyles();
+  const styles = useStyles({colorMode});
 
   console.log("Color Scheme", theme.keys);
 
@@ -127,13 +127,15 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const { adminApp, adminAuth } = initAdminApp();
-  
+
   try {
     const cookies = nookies.get(context);
     const token = await adminAuth.verifyIdToken(cookies.token);
-    context.res.writeHead(302, { location: "/rooms" });
-    context.res.end();
     return {
+      redirect: {
+        permanent: false,
+        destination: "/rooms",
+      },
       props: {
         uid: token.uid,
         email: token.email,
@@ -141,6 +143,7 @@ export const getServerSideProps: GetServerSideProps = async (
     };
   } catch (e) {
     console.log("No user detected\nUser:", context.req.headers["user-agent"])
+    console.log("User IP: ", context.req.socket.remoteAddress)
     return {
       props: {} as never,
     };

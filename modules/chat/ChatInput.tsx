@@ -6,7 +6,7 @@ import {
   collection,
   getFirestore,
 } from "firebase/firestore";
-import { Input, Button, theme } from "@chakra-ui/react";
+import { Input, Button, theme, useColorMode } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
@@ -15,7 +15,7 @@ const ChatInput = ({ roomID }: any) => {
   const firestore = getFirestoreDB();
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesRef = collection(firestore, "rooms", roomID, "messages");
-
+  const { colorMode } = useColorMode();
   const { user } = useAuthentication();
 
   const handleSubmit = async () => {
@@ -47,7 +47,7 @@ const ChatInput = ({ roomID }: any) => {
       }}
       width="95%"
       margin="auto"
-      backgroundColor={theme.colors.purple[100]}
+      backgroundColor={colorMode == "dark" ? theme.colors.purple[300] : theme.colors.purple[100]}
       sx={{
         border: "none",
       }}
