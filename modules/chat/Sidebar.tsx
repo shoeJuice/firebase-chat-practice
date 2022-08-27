@@ -49,52 +49,45 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
         icon={<HamburgerIcon />}
         onClick={() => setIsOpen(!isOpen)}
       />
-      <motion.div
-        animate={{
-          x: isOpen ? 0 : "-100%",
-          display: isOpen ? "block" : "none",
-          transition: { duration: 0.2 },
-        }}
-      >
-        <Box overflowY="auto" overflowX="hidden" maxHeight="85%">
-          <Heading
-            color={
-              colorMode == "dark"
-                ? theme.colors.gray[50]
-                : theme.colors.blackAlpha[700]
-            }
-            mb={2}
-          >
-            Rooms
-          </Heading>
-          <CustomModal
-            roomNameHandle={roomNameHandle}
-            roomIDHandler={roomIDHandle}
-          />
-          {values?.docs.map((value, key) => {
-            return (
-              <div key={value.id}>
-                <Tooltip label={value.data().description} placement="bottom">
-                  <Button
-                    variant="ghost"
-                    colorScheme={colorMode == "dark" ? "gray" : "purple"}
-                    isActive={roomID == value.id}
-                    width="100%"
-                    justifyContent="flex-start"
-                    my={2}
-                    onClick={() => {
-                      roomNameHandle(value.data().title);
-                      roomIDHandle(value.id);
-                    }}
-                  >
-                    {value.data().title}
-                  </Button>
-                </Tooltip>
-              </div>
-            );
-          })}
-        </Box>
-      </motion.div>
+
+      <Box overflowY="auto" overflowX="hidden" maxHeight="85%">
+        <Heading
+          color={
+            colorMode == "dark"
+              ? theme.colors.gray[50]
+              : theme.colors.blackAlpha[700]
+          }
+          mb={2}
+        >
+          Rooms
+        </Heading>
+        <CustomModal
+          roomNameHandle={roomNameHandle}
+          roomIDHandler={roomIDHandle}
+        />
+        {values?.docs.map((value, key) => {
+          return (
+            <div key={value.id}>
+              <Tooltip label={value.data().description} placement="bottom">
+                <Button
+                  variant="ghost"
+                  colorScheme={colorMode == "dark" ? "gray" : "purple"}
+                  isActive={roomID == value.id}
+                  width="100%"
+                  justifyContent="flex-start"
+                  my={2}
+                  onClick={() => {
+                    roomNameHandle(value.data().title);
+                    roomIDHandle(value.id);
+                  }}
+                >
+                  {value.data().title}
+                </Button>
+              </Tooltip>
+            </div>
+          );
+        })}
+      </Box>
     </Box>
   );
 };
