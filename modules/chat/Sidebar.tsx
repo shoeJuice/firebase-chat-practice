@@ -50,7 +50,7 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
         onClick={() => setIsOpen(!isOpen)}
       />
 
-      <Box overflowY="auto" overflowX="hidden" maxHeight="85%">
+      <Box display={isOpen ? "block" : "none"} overflowY="auto" overflowX="hidden" maxHeight="85%">
         <Heading
           color={
             colorMode == "dark"
