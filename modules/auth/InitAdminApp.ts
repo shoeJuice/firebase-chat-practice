@@ -12,13 +12,11 @@ import { firebaseAdminConfig } from "../../config/FirebaseApp";
  * firebaseApp and its authentication service.
  */
 export default function useAdminApp() {
-  let adminAuth = null;
-  let adminApp = null;
   if (admin.apps.length == 0) {
-    adminApp = admin.initializeApp({
+    const adminApp  = admin.initializeApp({
       credential: admin.credential.cert(firebaseAdminConfig),
     });
-    adminAuth = admin.auth(adminApp);
+    const adminAuth = admin.auth(adminApp);
     return { adminApp, adminAuth };
   } else {
     return { adminApp: admin.apps[0], adminAuth: admin.auth() };

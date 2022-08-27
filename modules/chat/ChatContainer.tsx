@@ -6,7 +6,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 
 import { useAuthentication } from "../../context/AuthenticationContext";
-
+import { motion } from "framer-motion";
 
 const ChatBubble = ({ user, text, isUser, ref }: any) => {
   return (
@@ -14,6 +14,7 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
       px={10}
       py={5}
       borderRadius={10}
+      boxShadow="lg"
       sx={{
         alignSelf: isUser ? "flex-end" : "flex-start",
         textAlign: isUser ? "right" : "left",
@@ -29,6 +30,12 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
   );
 };
 
+/**
+ *
+ * Render a component that displays all messages for a unique chat room.
+ * @param {String} roomID The unique ID of the chat room.
+ *
+ */
 const ChatContainer = ({ roomID }: any) => {
   const firestore = getFirestoreDB();
   const { user } = useAuthentication();
@@ -48,18 +55,23 @@ const ChatContainer = ({ roomID }: any) => {
       height="100%"
       width="100%"
       overflowY="scroll"
+      overflowX="hidden"
       padding={5}
     >
       {loading ? (
-        <div style={{ margin: "auto" }}>
+        <Flex width="100%" height="100%" margin="auto">
           <Spinner size="xl" />
-        </div>
+        </Flex>
       ) : (
         messages?.map((message, key) => {
-          if (message.user == user.displayName) {
+          if (message.user == user.displayName && key == messages.length - 1) {
             return (
-              <div
+              <motion.div
                 ref={messageEndRef}
+                animate={{
+                  scaleX: [2, 1],
+                  transition: { type: "spring", duration: 0.5 },
+                }}
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
@@ -73,10 +85,24 @@ const ChatContainer = ({ roomID }: any) => {
                   isUser={true}
                   key={key}
                 />
-              </div>
+              </motion.div>
             );
           } else {
-            return (
+            return key == messages.length - 1 ? (
+              <motion.div
+                ref={messageEndRef}
+                animate={{
+                  scaleX: [2, 1],
+                  transition: { type: "spring", duration: 0.5 },
+                }}
+                style={{
+                  display: "flex",
+                  marginBottom: "10px",
+                }}
+              >
+                <ChatBubble user={message.user} text={message.text} key={key} />
+              </motion.div>
+            ) : (
               <div
                 ref={messageEndRef}
                 style={{

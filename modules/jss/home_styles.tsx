@@ -1,5 +1,9 @@
 import { createUseStyles } from "react-jss";
 
+
+/**
+ * @description The CSS-in-JS styles for the home page. This is a custom hook that is used to create a custom stylesheet for the home page.
+ */
 const useStyles = createUseStyles({
   splashContainer: {
     display: "flex",

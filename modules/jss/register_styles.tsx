@@ -1,5 +1,9 @@
 import { createUseStyles } from "react-jss";
 
+
+/**
+ * @description The CSS-in-JS styles for the register page. This is a custom hook that is used to create a custom stylesheet for the register page.
+ */
 const usePageStyles = createUseStyles({
   fullPage: {
     display: "flex",
@@ -37,6 +41,10 @@ const usePageStyles = createUseStyles({
   },
 });
 
+
+/**
+ * @description The CSS-in-JS styles for the register form. This is a custom hook that is used to create a custom stylesheet for the register form.
+ */
 export const useMotionStyles = createUseStyles({
   registerBackground: {
     display: "flex",

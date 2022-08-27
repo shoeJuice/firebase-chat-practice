@@ -48,7 +48,7 @@ function LoginPage() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 2.5, ease: "linear" } }}
+      animate={{ opacity: 1, transition: { duration: 1.5, ease: "linear" } }}
       exit={{ opacity: 0 }}
     >
       <ConfettiAnimation
@@ -60,7 +60,7 @@ function LoginPage() {
           <motion.div
             className={styles.loginForm}
             initial={{ opacity: 0, y: "200%" }}
-            animate={{ opacity: 1, y: 0, transition: { duration: 2.5 } }}
+            animate={{ opacity: 1, y: 0, transition: { type: "spring", duration: 1.4 } }}
             exit={{ opacity: 0 }}
           >
             <Heading as="h1" size="xl" mb={5}>

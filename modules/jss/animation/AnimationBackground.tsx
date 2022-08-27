@@ -1,6 +1,9 @@
 import { createUseStyles } from "react-jss";
-import { motion } from "framer-motion";
 
+
+/**
+ * @description The CSS-in-JS styles for the background animation. This utilizes a hook to create a custom stylesheet for the background animation.
+ */
 export const useAnimationStyles = createUseStyles({
   background: {
     display: "flex",
@@ -10,6 +13,9 @@ export const useAnimationStyles = createUseStyles({
   },
 });
 
+/**
+ * @description The CSS-in-JS styles for the background confetti. This utilizes a hook to create a custom stylesheet for the background confetti.
+ */
 export const useConfettiStyles = createUseStyles({
   background: {
     position: "absolute",

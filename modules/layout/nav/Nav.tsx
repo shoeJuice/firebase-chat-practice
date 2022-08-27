@@ -3,13 +3,9 @@ import { useAuthentication } from "../../../context/AuthenticationContext";
 import {
   Button,
   Text,
-  Stack,
-  useChakra,
-  useColorModeValue,
   useColorMode,
-  theme,
-  IconButton,
   Icon,
+  Flex,
   HStack,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -17,6 +13,12 @@ import NextLink from "next/link";
 import { FaUserAlt, FaCog } from "react-icons/fa";
 import { HiChatAlt2, HiLogout } from "react-icons/hi";
 
+
+/**
+ * Renders a navigation bar for the application.
+ * 
+ * @returns 
+ */
 const Nav = ({ hiddenBreakpoint, hidden }: any) => {
   const { login, user, logout } = useAuthentication();
   const { colorMode } = useColorMode();
@@ -31,15 +33,9 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
   };
 
   return (
-    <Stack
+    <Flex
       direction={["row", "row", "column", "column"]}
-      backgroundColor={
-        colorMode == "dark"
-          ? theme.colors.whiteAlpha[500]
-          : theme.colors.purple[200]
-      }
       position="relative"
-      boxShadow={["dark-lg", "dark-lg", "xl", "xl"]}
       alignItems={["center", "center", "flex-start", "flex-start"]}
       justifyContent={[
         "space-between",
@@ -47,11 +43,13 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         "flex-start",
         "flex-start",
       ]}
-      padding={5}
+      paddingY={[0, 0, "1rem", "1rem"]}
       zIndex={100}
       order={["1", "1", "0", "0"]}
-      flex={1}
-    
+      flex={.1}
+      gap={1}
+      height="100%"
+      boxShadow="base"
     >
       <NextLink href="/rooms">
         <Button
@@ -60,13 +58,15 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           aria-label="Chat-Rooms"
           size="lg"
           width="100%"
+          height={["100%" , "100%", "10%", "10%"]}
+          borderRadius={0}
         >
           <HStack
             spacing={2}
             justifyContent={["center", "center", "flex-start", "flex-start"]}
             width="100%"
           >
-            <Icon as={HiChatAlt2} />
+            <Icon boxSize={["2em", "2em", "1em", "1em"]} as={HiChatAlt2} />
             <Text display={["none", "none", "block", "block"]}>Rooms</Text>
           </HStack>
         </Button>
@@ -78,13 +78,15 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         aria-label="Profile"
         size="lg"
         width="100%"
+        height={["100%" , "100%", "10%", "10%"]}
+        borderRadius={0}
       >
         <HStack
           spacing={2}
           justifyContent={["center", "center", "flex-start", "flex-start"]}
           width="100%"
         >
-          <Icon as={FaUserAlt} />
+          <Icon boxSize={["2em", "2em", "1em", "1em"]} as={FaUserAlt} />
           <Text display={["none", "none", "block", "block"]}>Profile</Text>
         </HStack>
       </Button>
@@ -96,13 +98,15 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
           aria-label="Settings"
           size="lg"
           width="100%"
+          height={["100%" , "100%", "10%", "10%"]}
+          borderRadius={0}
         >
           <HStack
             spacing={2}
             justifyContent={["center", "center", "flex-start", "flex-start"]}
             width="100%"
           >
-            <Icon as={FaCog} />
+            <Icon boxSize={["2em", "2em", "1em", "1em"]} as={FaCog} />
             <Text display={["none", "none", "block", "block"]}>Settings</Text>
           </HStack>
         </Button>
@@ -115,17 +119,19 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         size="lg"
         onClick={logout}
         width="100%"
+        height={["100%" , "100%", "10%", "10%"]}
+        borderRadius={0}
       >
         <HStack
           spacing={2}
           justifyContent={["center", "center", "flex-start", "flex-start"]}
           width="100%"
         >
-          <Icon as={HiLogout} />
+          <Icon boxSize={["2em", "2em", "1em", "1em"]} as={HiLogout} />
           <Text display={["none", "none", "block", "block"]}>Logout</Text>
         </HStack>
       </Button>
-    </Stack>
+    </Flex>
   );
 };
 

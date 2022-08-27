@@ -2,19 +2,9 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { WordSwitcher } from "../modules/layout/WordSwitcher";
 import { motion } from "framer-motion";
-import { Button, useChakra, Center } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import Image from "next/image";
 import { NextLink } from "@mantine/next";
-import { createUseStyles } from "react-jss";
-import * as admin from "firebase-admin";
-import { firebaseAdminConfig } from "../config/FirebaseApp";
-import nookies from "nookies";
-import {
-  GetServerSidePropsContext,
-  GetServerSideProps,
-  InferGetServerSidePropsType,
-} from "next";
-import InitAdminApp from "../modules/auth/InitAdminApp";
 import useHomeStyle from "../modules/jss/home_styles"
 
 

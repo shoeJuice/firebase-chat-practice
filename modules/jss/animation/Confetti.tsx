@@ -1,13 +1,11 @@
 import injectSheet, { createUseStyles } from "react-jss";
 import {motion} from "framer-motion";
 
-type ConfettiProps = {
-  children?: React.ReactNode;
-  opacity: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-  numConfetti?: number;
-  excludeList?: string[];
-};
 
+/**
+ * @description Object defining styles for the confetti used by the confetti animation
+ * within the login page.
+ */
 const motionStyles = {
   confetti: (props: {
     xSpread: number;
@@ -26,6 +24,14 @@ const motionStyles = {
   }),
 };
 
+/**
+ * 
+ * @description Render a basic confetti component for the confetti animation within the login page.
+ * @param {Object} classes - The classes object from the JSS stylesheet.
+ * @param {Object} key - The key of the confetti.
+ * @param {Object} custom - The custom object defining props to pass to the JSS stylesheet
+ * @param {Object} animate - The animate object defining props to pass to the framer-motion animation.
+ */
 const Confetti = ({ classes, key, custom, animate }: any) => {
     return (
       <motion.div

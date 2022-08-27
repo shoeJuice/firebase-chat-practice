@@ -1,11 +1,10 @@
 import { useState } from "react";
 import type { AppProps } from "next/app";
 import { AuthenticationProvider } from "../context/AuthenticationContext";
-import { useRouter } from "next/router";
-import Nav from "../modules/layout/nav/Nav";
+
 import { AnimatePresence, motion } from "framer-motion";
-import injectSheet, { createUseStyles } from "react-jss";
-import { Button, ChakraProvider } from "@chakra-ui/react";
+import injectSheet from "react-jss";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const useStyles = {
   "@global": {
@@ -29,6 +28,7 @@ const useStyles = {
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [opened, setOpened] = useState(false);
+  
 
   return (
     <ChakraProvider>
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={router.route}
-            animate={{
+            animate={router.route.includes("rooms") || router.route.includes("settings") || router.route.includes("login") ? undefined : {
               opacity: [0, 1],
               transition: {
                 duration: 0.5,

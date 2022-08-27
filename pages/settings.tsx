@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Box,
-  ColorModeScript,
   useColorMode,
-  useChakra,
   Heading,
-  Text,
-  Flex,
   Switch,
   Container,
   theme,
   VStack,
-  Select,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   Button,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import nookies from "nookies";
 import { MainLayout } from "../modules/layout/MainLayout";
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from "next";

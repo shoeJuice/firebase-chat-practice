@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
@@ -12,10 +11,7 @@ import {
   Input,
   FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { addDoc, collection } from "firebase/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 
@@ -26,7 +22,6 @@ import { getFirestoreDB } from "../../config/FirebaseApp";
  */
 
 export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
-  const router = useRouter();
   const firestore = getFirestoreDB();
   const [opened, setOpened] = useState(false);
   const [roomName, setRoomName] = useState("");
@@ -44,9 +39,6 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
       .catch((error) => {
         console.log(error);
       });
-    console.log(
-      `Room ${roomName} gets created. Description: ${roomDescription}`
-    );
 
     setOpened(false);
     onClose();

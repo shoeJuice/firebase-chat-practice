@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { collection } from "firebase/firestore";
 
@@ -31,16 +31,15 @@ const Rooms = (
   );
   const { theme, colorMode } = useChakra();
 
-  useEffect(() => {
-    console.log("Room ID Changed: ", roomID);
-  }, [roomID]);
 
   if (props.uid) {
     return (
       props.uid &&
       (loading ? (
         <MainLayout>
-          <Spinner />
+          <Flex alignItems="center" justifyContent="center" height="100%" width="100%">
+            <Spinner />
+          </Flex>
         </MainLayout>
       ) : (
         <MainLayout>
@@ -56,7 +55,7 @@ const Rooms = (
               backgroundColor={
                 colorMode == "dark"
                   ? theme.colors.whiteAlpha[50]
-                  : theme.colors.purple[50]
+                  : theme.colors.whiteAlpha[50]
               }
             >
               {roomID != "" && (
@@ -69,13 +68,13 @@ const Rooms = (
                   <Heading
                     backgroundColor={
                       colorMode == "dark"
-                        ? theme.colors.whiteAlpha[500]
-                        : theme.colors.purple[100]
+                        ? theme.colors.purple[300]
+                        : theme.colors.purple[500]
                     }
                     color={
                       colorMode == "dark"
                         ? theme.colors.whiteAlpha[800]
-                        : theme.colors.purple[800]
+                        : theme.colors.whiteAlpha[900]
                     }
                     padding={3}
                     size="lg"

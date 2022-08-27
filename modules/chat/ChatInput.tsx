@@ -1,15 +1,17 @@
 import React, { useRef } from "react";
 
-import {
-  addDoc,
-  serverTimestamp,
-  collection,
-} from "firebase/firestore";
+import { addDoc, serverTimestamp, collection } from "firebase/firestore";
 import { Input, theme, useColorMode } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { useAuthentication } from "../../context/AuthenticationContext";
 
+/**
+ * Render a component that allows users to add messages to a unique
+ * chat room.
+ * @param {String} roomID The unique ID of the chat room.
+ *
+ */
 const ChatInput = ({ roomID }: any) => {
   const firestore = getFirestoreDB();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -46,12 +48,17 @@ const ChatInput = ({ roomID }: any) => {
       }}
       width="95%"
       margin="auto"
-      backgroundColor={colorMode == "dark" ? theme.colors.purple[300] : theme.colors.purple[100]}
+      backgroundColor={
+        colorMode == "dark"
+          ? theme.colors.purple[300]
+          : theme.colors.purple[500]
+      }
+      color={theme.colors.whiteAlpha[900]}
       sx={{
         border: "none",
         _placeholder: {
-          color: theme.colors.purple[800],
-        }
+          color: colorMode == "dark" ? theme.colors.purple[600] : theme.colors.whiteAlpha[800],
+        },
       }}
       padding={7}
       placeholder="Type a message..."

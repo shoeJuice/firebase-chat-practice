@@ -4,13 +4,11 @@ import {
   onAuthStateChanged,
   signInWithPopup,
   signInWithEmailAndPassword,
-  GoogleAuthProvider,
   signOut,
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { getFirebaseAuth, providers } from "../config/FirebaseApp";
-import useAdminApp from "../modules/auth/InitAdminApp";
 import nookies from 'nookies';
 
 const AuthenticationContext = createContext<any>({});
