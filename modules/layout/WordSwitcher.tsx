@@ -3,10 +3,7 @@ import {
   AnimatePresence,
   motion,
   useCycle,
-  AnimateSharedLayout,
 } from "framer-motion";
-import { Text } from "@mantine/core";
-import { useMantineTheme } from "@mantine/core";
 import useRainbow from "../../utils/functions/useRainbow";
 
 /**
@@ -23,8 +20,7 @@ export const WordSwitcher = () => {
   const [altWords, setAltWords] = React.useState("Practice");
 
   const [index, setIndex] = useCycle(0, 4);
-  let randomChoice = useRef<number>(0);
-  let displayDep = displayWord === false;
+
 
   React.useEffect(() => {
     setTimeout(() => {

@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import {
-  Container,
-  Stack,
-  Button,
   Flex,
-  Text,
-  Heading,
   Box,
   theme,
 } from "@chakra-ui/react";
@@ -19,19 +14,37 @@ import Nav from "./nav/Nav";
  * Use this layout with all pages that need navigation, header, footer, etc.
  */
 export const MainLayout = ({ children }: any) => {
+  const { colorMode } = useColorMode();
+  let fullMobileHeight : number;
 
-    const { colorMode } = useColorMode();
-
+  useEffect(() => {
+    fullMobileHeight = window.innerHeight;
+  }, [window.innerHeight])
 
   return (
-    <Box width="100%" height={[window.innerHeight, window.innerHeight, "100vh", "100vh"]}>
-      <Flex height="100%" flexDirection={["column", "column", "row", "row"]}>
+    <Box
+      width="100%"
+      height={[window.innerHeight, window.innerHeight, "100vh", "100vh"]}
+    >
+      <Flex
+        backgroundColor={
+          colorMode == "dark"
+            ? theme.colors.whiteAlpha[500]
+            : theme.colors.whiteAlpha[900]
+        }
+        height="100%"
+        flexDirection={["column", "column", "row", "row"]}
+      >
         <Nav />
         <Box
           width="100%"
-          height={["85%" , "85%", "100%", "100%"]}
-          backgroundColor={colorMode == "dark" ? theme.colors.blackAlpha[900] : theme.colors.purple[100]}
-          boxShadow="inner"
+          height={["85%", "85%", "100%", "100%"]}
+          backgroundColor={
+            colorMode == "dark"
+              ? theme.colors.blackAlpha[900]
+              : theme.colors.whiteAlpha[100]
+          }
+          flex={.9}
         >
           <Box
             boxShadow="inner"

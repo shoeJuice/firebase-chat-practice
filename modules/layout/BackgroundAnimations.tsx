@@ -9,7 +9,6 @@
 import { useEffect, useState } from "react";
 import useRainbow from "../../utils/functions/useRainbow";
 import { motion, useAnimationControls } from "framer-motion";
-import injectSheet, { createUseStyles } from "react-jss";
 import { StyledConfetti } from "../jss/animation/Confetti";
 import {
   useAnimationStyles,
@@ -26,7 +25,8 @@ type ConfettiProps = {
 
 /**
  *
- * @description This component provides a back-ground confetti animation to its children.
+ * @description Render a component that 
+ * provides a back-ground confetti animation to its children.
  *
  * @ The layout animations `ConfettiAnimation` are full-screen animations,
  * use them when displaying full-screen animations.
