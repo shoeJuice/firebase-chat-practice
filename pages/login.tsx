@@ -15,9 +15,7 @@ import { motion } from "framer-motion";
 import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
-// Note: Ignoring for not because it works while displaying the error message.
-// @ts-ignore
-import initAdminApp from "../modules/auth/initAdminApp";
+import initAdminApp from "../modules/auth/InitAdminApp";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
