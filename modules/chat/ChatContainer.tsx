@@ -18,8 +18,8 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
       sx={{
         alignSelf: isUser ? "flex-end" : "flex-start",
         textAlign: isUser ? "right" : "left",
-        backgroundColor: isUser ? "#8a2be2" : "#CED4DA",
-        color: isUser ? "white" : theme.colors.blackAlpha[800],
+        backgroundColor: isUser ? theme.colors.purple[600] : theme.colors.gray[400],
+        color: theme.colors.whiteAlpha[900],
       }}
     >
       <Flex gap={2} flexDirection="column" justifyContent="flex-start">

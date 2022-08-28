@@ -69,12 +69,12 @@ const Rooms = (
                     backgroundColor={
                       colorMode == "dark"
                         ? theme.colors.purple[300]
-                        : theme.colors.purple[500]
+                        : theme.colors.whiteAlpha[900]
                     }
                     color={
                       colorMode == "dark"
                         ? theme.colors.whiteAlpha[800]
-                        : theme.colors.whiteAlpha[900]
+                        : theme.colors.purple[600]
                     }
                     padding={3}
                     size="lg"

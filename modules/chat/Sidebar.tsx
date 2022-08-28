@@ -7,13 +7,19 @@ import {
   Button,
   theme,
   useColorMode,
+  VStack,
+  HStack,
+  Text,
+  Flex,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 import { collection } from "firebase/firestore";
 import { CustomModal } from "../widgets/CustomModal";
-import { motion, MotionConfig } from "framer-motion";
+import { useAuthentication } from "../../context/AuthenticationContext";
+import { Avatar } from "@mantine/core";
+import Image from "next/image";
 
 /**
  *
@@ -29,16 +35,23 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
     collection(getFirestoreDB(), "rooms")
   );
   const { colorMode } = useColorMode();
+  const { user } = useAuthentication();
+
+  console.log(user)
 
   return (
-    <Box
-      padding={3}
+    <VStack
+      padding={4}
       boxShadow="inner"
       backgroundColor={
         colorMode == "dark"
           ? theme.colors.whiteAlpha[500]
           : theme.colors.gray[50]
       }
+      height="100%"
+      
+      alignItems="flex-start"
+      justifyContent="flex-start"
     >
       <IconButton
         aria-label="Toggle Rooms Menu"
@@ -50,12 +63,18 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
         onClick={() => setIsOpen(!isOpen)}
       />
 
-      <Box display={isOpen ? "block" : "none"} overflowY="auto" overflowX="hidden" maxHeight="85%">
+      <Box
+        display={isOpen ? "block" : "none"}
+        overflowY="auto"
+        overflowX="hidden"
+        maxHeight="95%"
+        flex={1}
+      >
         <Heading
           color={
             colorMode == "dark"
               ? theme.colors.gray[50]
-              : theme.colors.blackAlpha[700]
+              : theme.colors.purple[700]
           }
           mb={2}
         >
@@ -88,7 +107,14 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
           );
         })}
       </Box>
-    </Box>
+      <Flex borderTop="1px solid" paddingY={4} flexDirection="row" alignItems="center" width="100%" gap={2} justifyContent="center">
+        <Image src={user.photoURL} alt="avatar" layout="fixed" width="40px" height="40px" style={{borderRadius: "2em"}} />
+        <VStack alignItems="flex-start">
+          <Text>{user.displayName}</Text>
+          <Text>{user.email}</Text>
+        </VStack>
+      </Flex>
+    </VStack>
   );
 };
 

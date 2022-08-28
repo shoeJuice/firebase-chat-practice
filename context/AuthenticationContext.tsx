@@ -9,7 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { getFirebaseAuth, providers } from "../config/FirebaseApp";
-import nookies from 'nookies';
+import nookies from "nookies";
 
 const AuthenticationContext = createContext<any>({});
 
@@ -27,7 +27,7 @@ export const AuthenticationProvider = ({ children }: any) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log("Rerendered")
+    console.log("Rerendered");
     const isSubscribed = onAuthStateChanged(getFirebaseAuth(), (user) => {
       if (user) {
         setUser({
@@ -43,49 +43,67 @@ export const AuthenticationProvider = ({ children }: any) => {
     setLoading(false);
   }, []);
 
-  const registerWithEmailAndPassword = async (email: string, password: string, username: string) => {
-    return await createUserWithEmailAndPassword(getFirebaseAuth(), email, password)
-    .then(async(credentials) => {
-      let authInstance = getFirebaseAuth();
-      const token = await credentials.user.getIdToken();
-      onAuthStateChanged(authInstance, (user) => {
-        if (user) {
-        updateProfile(user, {displayName: username});
-        setUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
+  const registerWithEmailAndPassword = async (
+    email: string,
+    password: string,
+    username: string
+  ) => {
+    return await createUserWithEmailAndPassword(
+      getFirebaseAuth(),
+      email,
+      password
+    )
+      .then(async (credentials) => {
+        let authInstance = getFirebaseAuth();
+        const token = await credentials.user.getIdToken();
+        onAuthStateChanged(authInstance, (user) => {
+          if (user) {
+            updateProfile(user, { displayName: username });
+            setUser({
+              uid: user.uid,
+              email: user.email,
+              displayName: user.displayName,
+              photoURL: user.photoURL,
+            });
+          }
         });
-        }
+        nookies.set(undefined, "token", token, { path: "/" });
+        router.push("/");
       })
-      nookies.set(undefined, 'token', token, {path: '/'});
-      router.push('/');
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const login = async (email: any, password: any) => {
     return await signInWithEmailAndPassword(getFirebaseAuth(), email, password)
-    .then(async(credentials) => {
-      const token = await credentials.user.getIdToken();
-      nookies.set(undefined, 'token', token, {path: '/'});
-      router.push("/rooms");
-    })
-    .catch(
-      (error) => {
+      .then(async (credentials) => {
+        const token = await credentials.user.getIdToken();
+        setUser({
+          uid: credentials.user.uid,
+          email: credentials.user.email,
+          displayName: credentials.user.displayName,
+          photoURL: credentials.user.photoURL,
+        });
+        nookies.set(undefined, "token", token, { path: "/" });
+        router.push("/rooms");
+      })
+      .catch((error) => {
         console.log(error.message);
-      }
-    );
+      });
   };
 
   const loginWithGoogle = async () => {
     return await signInWithPopup(getFirebaseAuth(), providers.Google)
-      .then(async(credentials) => {
+      .then(async (credentials) => {
         const token = await credentials.user.getIdToken();
-        nookies.set(undefined, 'token', token, {path: '/'});
+        setUser({
+          uid: credentials.user.uid,
+          email: credentials.user.email,
+          displayName: credentials.user.displayName,
+          photoURL: credentials.user.photoURL,
+        });
+        nookies.set(undefined, "token", token, { path: "/" });
         router.push("/rooms");
       })
       .catch((error) => {
@@ -96,14 +114,24 @@ export const AuthenticationProvider = ({ children }: any) => {
   const logout = async () => {
     setUser(null);
     await signOut(getFirebaseAuth()).then(() => {
-      nookies.destroy(undefined, 'token', {path: '/'});
+      setUser(null);
+      nookies.destroy(undefined, "token", { path: "/" });
       router.push("./login");
-    })
+    });
   };
 
   return (
     <AuthenticationContext.Provider
-      value={{ user, login, logout, loginWithGoogle, roomName, setRoomName, loading, registerWithEmailAndPassword }}
+      value={{
+        user,
+        login,
+        logout,
+        loginWithGoogle,
+        roomName,
+        setRoomName,
+        loading,
+        registerWithEmailAndPassword,
+      }}
     >
       {loading ? null : children}
     </AuthenticationContext.Provider>

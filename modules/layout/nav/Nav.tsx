@@ -72,24 +72,6 @@ const Nav = ({ hiddenBreakpoint, hidden }: any) => {
         </Button>
       </NextLink>
 
-      <Button
-        boxShadow="xl"
-        colorScheme="purple"
-        aria-label="Profile"
-        size="lg"
-        width="100%"
-        height={["100%" , "100%", "10%", "10%"]}
-        borderRadius={0}
-      >
-        <HStack
-          spacing={2}
-          justifyContent={["center", "center", "flex-start", "flex-start"]}
-          width="100%"
-        >
-          <Icon boxSize={["2em", "2em", "1em", "1em"]} as={FaUserAlt} />
-          <Text display={["none", "none", "block", "block"]}>Profile</Text>
-        </HStack>
-      </Button>
 
       <NextLink href="/settings">
         <Button
