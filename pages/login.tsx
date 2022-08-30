@@ -15,7 +15,8 @@ import { motion } from "framer-motion";
 import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
-import initAdminApp from "../modules/auth/initAdminApp";
+// @ts-ignore
+import initAdminApp from "../modules/auth/InitAdminApp";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
