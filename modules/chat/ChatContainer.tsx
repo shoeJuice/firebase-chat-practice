@@ -1,14 +1,36 @@
 import React from "react";
 
-import { Box, Text, Flex, Spinner, theme } from "@chakra-ui/react";
-import { collection, query, orderBy } from "firebase/firestore";
+import { Box, Text, Flex, Spinner, theme, } from "@chakra-ui/react";
+import { collection, query, orderBy, Timestamp } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
 
 import { useAuthentication } from "../../context/AuthenticationContext";
-import { motion } from "framer-motion";
 
-const ChatBubble = ({ user, text, isUser, ref }: any) => {
+type ChatInfo = {
+  user: {
+    displayName: string,
+    photoURL: string,
+    email: string,
+    uid: string,
+  },
+  text: string,
+  isUser: boolean,
+  ref: any,
+  time: Timestamp
+}
+
+const ChatBubble = ({ user, text, isUser, ref, time }: ChatInfo) => {
+  console.log(
+    new Intl.DateTimeFormat("en-US", {
+      dateStyle: "long",
+      timeStyle: "medium",
+    }).format(time.toDate())
+  );
+  let currentTime = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "long",
+    timeStyle: "medium",
+  }).format(time.toDate());
   return (
     <Box
       px={10}
@@ -18,12 +40,21 @@ const ChatBubble = ({ user, text, isUser, ref }: any) => {
       sx={{
         alignSelf: isUser ? "flex-end" : "flex-start",
         textAlign: isUser ? "right" : "left",
-        backgroundColor: isUser ? theme.colors.purple[600] : theme.colors.gray[400],
+        backgroundColor: isUser
+          ? theme.colors.purple[600]
+          : theme.colors.gray[400],
         color: theme.colors.whiteAlpha[900],
       }}
     >
       <Flex gap={2} flexDirection="column" justifyContent="flex-start">
-        {!isUser && <Text fontWeight="500">{user}</Text>}
+        {
+          <Box>
+            <Text fontWeight="500">
+              {user.displayName}
+            </Text>
+            <Text fontWeight="100">{currentTime}</Text>
+          </Box>
+        }
         <p>{text}</p>
       </Flex>
     </Box>
@@ -63,15 +94,11 @@ const ChatContainer = ({ roomID }: any) => {
           <Spinner size="xl" />
         </Flex>
       ) : (
-        messages?.map((message, key) => {
-          if (message.user == user.displayName && key == messages.length - 1) {
+        user && messages?.map((message, key) => {
+          if (message.user.uid == user.uid) {
             return (
-              <motion.div
+              <div
                 ref={messageEndRef}
-                animate={{
-                  scaleX: [2, 1],
-                  transition: { type: "spring", duration: 0.5 },
-                }}
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
@@ -84,25 +111,12 @@ const ChatContainer = ({ roomID }: any) => {
                   text={message.text}
                   isUser={true}
                   key={key}
+                  time={message.createdAt}
                 />
-              </motion.div>
+              </div>
             );
           } else {
-            return key == messages.length - 1 ? (
-              <motion.div
-                ref={messageEndRef}
-                animate={{
-                  scaleX: [2, 1],
-                  transition: { type: "spring", duration: 0.5 },
-                }}
-                style={{
-                  display: "flex",
-                  marginBottom: "10px",
-                }}
-              >
-                <ChatBubble user={message.user} text={message.text} key={key} />
-              </motion.div>
-            ) : (
+            return (
               <div
                 ref={messageEndRef}
                 style={{
@@ -110,7 +124,7 @@ const ChatContainer = ({ roomID }: any) => {
                   marginBottom: "10px",
                 }}
               >
-                <ChatBubble user={message.user} text={message.text} key={key} />
+                <ChatBubble user={message.user} isUser={false} ref={messageEndRef} time={message.createdAt} text={message.text} key={key} />
               </div>
             );
           }

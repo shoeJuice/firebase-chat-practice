@@ -10,7 +10,6 @@ import {
   VStack,
   HStack,
   Text,
-  Flex,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -18,7 +17,6 @@ import { getFirestoreDB } from "../../config/FirebaseApp";
 import { collection } from "firebase/firestore";
 import { CustomModal } from "../widgets/CustomModal";
 import { useAuthentication } from "../../context/AuthenticationContext";
-import { Avatar } from "@mantine/core";
 import Image from "next/image";
 
 /**
@@ -37,7 +35,7 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
   const { colorMode } = useColorMode();
   const { user } = useAuthentication();
 
-  console.log(user)
+  console.log(user);
 
   return (
     <VStack
@@ -49,7 +47,6 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
           : theme.colors.gray[50]
       }
       height="100%"
-      
       alignItems="flex-start"
       justifyContent="flex-start"
     >
@@ -68,6 +65,7 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
         overflowY="auto"
         overflowX="hidden"
         maxHeight="95%"
+        width="100%"
         flex={1}
       >
         <Heading
@@ -107,13 +105,33 @@ const Sidebar = ({ roomNameHandle, roomIDHandle, roomID }: any) => {
           );
         })}
       </Box>
-      <Flex borderTop="1px solid" paddingY={4} flexDirection="row" alignItems="center" width="100%" gap={2} justifyContent="center">
-        <Image src={user.photoURL} alt="avatar" layout="fixed" width="40px" height="40px" style={{borderRadius: "2em"}} />
-        <VStack alignItems="flex-start">
-          <Text>{user.displayName}</Text>
-          <Text>{user.email}</Text>
-        </VStack>
-      </Flex>
+
+      {user && (
+        <HStack
+          width="100%"
+          color={colorMode == "dark"
+          ? theme.colors.gray[50]
+          : theme.colors.purple[700]}
+          display={isOpen ? "flex" : "none"}
+          paddingY={4}
+          borderTop={`1px solid ${colorMode == "dark"
+          ? theme.colors.gray[50]
+          : theme.colors.purple[700]}`}
+        >
+          <Image
+            src={user.photoURL}
+            alt="avatar"
+            layout="fixed"
+            width="40px"
+            height="40px"
+            style={{ borderRadius: "2em" }}
+          />
+          <VStack alignItems="flex-start">
+            <Text>{user.displayName}</Text>
+            <Text>{user.email}</Text>
+          </VStack>
+        </HStack>
+      )}
     </VStack>
   );
 };

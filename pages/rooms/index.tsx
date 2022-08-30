@@ -68,8 +68,8 @@ const Rooms = (
                   <Heading
                     backgroundColor={
                       colorMode == "dark"
-                        ? theme.colors.purple[300]
-                        : theme.colors.whiteAlpha[900]
+                      ? theme.colors.whiteAlpha[500]
+                      : theme.colors.gray[50]
                     }
                     color={
                       colorMode == "dark"

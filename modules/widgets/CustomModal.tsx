@@ -11,6 +11,7 @@ import {
   Input,
   FormControl,
   FormLabel,
+  theme
 } from "@chakra-ui/react";
 import { addDoc, collection } from "firebase/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
@@ -50,7 +51,7 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent backgroundColor={theme.colors.blackAlpha[400]}>
           <ModalHeader>Create Room</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -74,6 +75,7 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
                   mt={5}
                   isDisabled={!roomDescription && !roomName}
                   onClick={handleSubmit}
+                  colorScheme="purple"
                 >
                   Create Room
                 </Button>

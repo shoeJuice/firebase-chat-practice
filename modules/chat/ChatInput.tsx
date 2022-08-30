@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-import { addDoc, serverTimestamp, collection } from "firebase/firestore";
+import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { Input, theme, useColorMode } from "@chakra-ui/react";
 
 import { getFirestoreDB } from "../../config/FirebaseApp";
@@ -20,17 +20,19 @@ const ChatInput = ({ roomID }: any) => {
   const { user } = useAuthentication();
 
   const handleSubmit = async () => {
+    let currentTimestamp = Timestamp.now();
     let input = inputRef.current?.value;
     if (input == "") {
       return;
     }
     await addDoc(messagesRef, {
-      user: user.displayName,
+      user: user,
       text: input,
-      createdAt: serverTimestamp(),
+      createdAt: currentTimestamp,
     }).catch((error) => {
       console.error(error.message);
     });
+    
     if (inputRef.current) inputRef.current.value = "";
   };
 
