@@ -15,7 +15,7 @@ import { motion } from "framer-motion";
 import { ConfettiAnimation } from "../modules/layout/BackgroundAnimations";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import nookies from "nookies";
-import initAdminApp from "../modules/auth/InitAdminApp";
+import initAdminApp from "../modules/auth/initAdminApp";
 import { createUseStyles } from "react-jss";
 
 const useStyles = createUseStyles({
@@ -60,7 +60,7 @@ function LoginPage() {
           <motion.div
             className={styles.loginForm}
             initial={{ opacity: 0, y: "200%" }}
-            animate={{ opacity: 1, y: 0, transition: { type: "spring", duration: 1.4 } }}
+            animate={{ opacity: 1, y: 0, transition: { duration: 1, ease: "easeInOut" } }}
             exit={{ opacity: 0 }}
           >
             <Heading as="h1" size="xl" mb={5}>

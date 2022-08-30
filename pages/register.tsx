@@ -14,11 +14,13 @@ import {
 import { motion } from "framer-motion";
 import React from "react";
 import { useRouter } from "next/router";
-import useRegisterStyles, {useMotionStyles} from "../modules/jss/register_styles";
+import useRegisterStyles, {
+  useMotionStyles,
+} from "../modules/jss/register_styles";
 import { useAuthentication } from "../context/AuthenticationContext";
 
 function Register() {
-  const { theme } = useChakra();
+  const { theme, colorMode } = useChakra();
   const router = useRouter();
   const styles = useRegisterStyles();
   const motionStyles = useMotionStyles();
@@ -30,46 +32,69 @@ function Register() {
   const usernameRef = React.useRef<HTMLInputElement>(null);
 
   const handleRegister = () => {
-    registerWithEmailAndPassword(emailRef.current?.value, passwordRef.current?.value, usernameRef.current?.value);
-  }
+    registerWithEmailAndPassword(
+      emailRef.current?.value,
+      passwordRef.current?.value,
+      usernameRef.current?.value
+    );
+  };
 
   return (
     <motion.div
       animate={{
-        backgroundPositionY: "-2000%",
-        transition: { duration: 100, ease: "linear", loop: Infinity },
+        backgroundPositionY: "2000%",
+        transition: { duration: 200, ease: "linear", loop: Infinity },
       }}
       className={styles.fullPage}
     >
-      <Box boxShadow={"dark-lg"} backgroundColor={"white"} zIndex={3}>
-        <motion.div
-          className={motionStyles.registerPanel}
-        >
+      <Box
+        boxShadow={"dark-lg"}
+        backgroundColor={
+          colorMode == "dark" ? "gray.800" : theme.colors.gray[50]
+        }
+        zIndex={3}
+      >
+        <motion.div className={motionStyles.registerPanel}>
           <Button
             colorScheme="purple"
             size="lg"
             onClick={() => router.push("/")}
+            mb={10}
           >
             Back
           </Button>
           <Flex
             align="center"
             justify="center"
-            bg={useColorModeValue("white", "gray.800")}
-            
+            bg={useColorModeValue("white", "whiteAlpha.300")}
+            borderRadius={6}
+            boxShadow="base"
           >
-            <VStack width="100%" spacing={5} flexDirection="column" paddingY={10} paddingX={8}>
+            <VStack
+              width="100%"
+              spacing={5}
+              flexDirection="column"
+              paddingY={10}
+              paddingX={8}
+            >
               <Heading
                 marginX="auto"
-                color={theme.colors.gray[700]}
+                color={
+                  colorMode == "dark"
+                    ? theme.colors.gray[50]
+                    : theme.colors.gray[800]
+                }
                 size="lg"
               >
                 Register
               </Heading>
               <Text
                 width={["300px", "450px", "600px"]}
-                color={theme.colors.gray[700]}
-                
+                color={
+                  colorMode == "dark"
+                    ? theme.colors.gray[50]
+                    : theme.colors.gray[800]
+                }
               >
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Commodi, a? Ad impedit consequatur illo vel, labore fugit in,
@@ -78,17 +103,84 @@ function Register() {
               </Text>
               <Box width="100%">
                 <FormControl>
-                  <FormLabel htmlFor="email">Username</FormLabel>
-                  <Input ref={usernameRef} />
-                  <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input ref={emailRef} />
+                  <FormLabel
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    htmlFor="email"
+                  >
+                    Email
+                  </FormLabel>
+                  <Input
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    backgroundColor={
+                      colorMode == "light" && theme.colors.blackAlpha[100]
+                    }
+                    boxShadow="inner"
+                    type="email"
+                    ref={emailRef}
+                  />
+                  <FormLabel
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    htmlFor="email"
+                  >
+                    Username
+                  </FormLabel>
+                  <Input
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    backgroundColor={
+                      colorMode == "light" && theme.colors.blackAlpha[100]
+                    }
+                    boxShadow="inner"
+                    ref={usernameRef}
+                  />
                 </FormControl>
                 <FormControl>
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <Input ref={passwordRef} />
+                  <FormLabel
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    htmlFor="password"
+                  >
+                    Password
+                  </FormLabel>
+                  <Input
+                    color={
+                      colorMode == "dark"
+                        ? theme.colors.gray[50]
+                        : theme.colors.gray[800]
+                    }
+                    backgroundColor={
+                      colorMode == "light" && theme.colors.blackAlpha[100]
+                    }
+                    boxShadow="inner"
+                    type="password"
+                    ref={passwordRef}
+                  />
                 </FormControl>
-                <FormControl ></FormControl>
-                <Button colorScheme="purple" size="lg" mt={10} onClick={handleRegister}>
+                <FormControl></FormControl>
+                <Button
+                  colorScheme="purple"
+                  size="lg"
+                  mt={10}
+                  onClick={handleRegister}
+                >
                   Register
                 </Button>
               </Box>

@@ -15,7 +15,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { useChakra, Heading, Spinner, Flex, Box } from "@chakra-ui/react";
 
 import { MainLayout } from "../../modules/layout/MainLayout";
-import initAdminApp from "../../modules/auth/InitAdminApp";
+import initAdminApp from "../../modules/auth/initAdminApp";
 import ChatContainer from "../../modules/chat/ChatContainer";
 import ChatInput from "../../modules/chat/ChatInput";
 import Sidebar from "../../modules/chat/Sidebar";
