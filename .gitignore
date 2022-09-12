@@ -7,6 +7,10 @@
 
 # testing
 /coverage
+/test
+jest.config.js
+/__mocks__
+/config/dev
 
 # next.js
 /.next/
@@ -24,6 +28,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+firestore-debug.log*
+ui-debug.log*
 
 # local env files
 .env*.local
@@ -34,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#firebase
+fir-chat-practice-da5a6-firebase-adminsdk-9wem5-75ef078269.json
+firebase-debug.*
