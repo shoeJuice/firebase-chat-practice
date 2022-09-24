@@ -11,7 +11,8 @@ import {
   Input,
   FormControl,
   FormLabel,
-  theme
+  theme,
+  useColorModeValue
 } from "@chakra-ui/react";
 import { addDoc, collection } from "firebase/firestore";
 import { getFirestoreDB } from "../../config/FirebaseApp";
@@ -51,7 +52,7 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent backgroundColor={theme.colors.blackAlpha[400]}>
+        <ModalContent backgroundColor={useColorModeValue(theme.colors.whiteAlpha[800], theme.colors.whiteAlpha[400])}>
           <ModalHeader>Create Room</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -63,6 +64,7 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
                 <Input
                   value={roomName}
                   onChange={(e) => setRoomName(e.target.value)}
+                  borderColor="gray.400"
                 />
                 <FormLabel mt={5} htmlFor="room-description">
                   Room Description
@@ -70,6 +72,7 @@ export const CustomModal = ({ roomIDHandler, roomNameHandle }: any) => {
                 <Input
                   value={roomDescription}
                   onChange={(e) => setRoomDescription(e.target.value)}
+                  borderColor="gray.400"
                 />
                 <Button
                   mt={5}
